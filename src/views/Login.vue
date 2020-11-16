@@ -3,7 +3,8 @@
     <h1>这是一个登录页面</h1>
     <p>{{ msg }}</p>
     <!-- 用标签渲染子组件 -->
-    <MyInput></MyInput>
+    <!-- 父组件主动发出数据 -->
+    <MyInput tixing="请您输入内容"></MyInput>
   </div>
 </template>
 

@@ -1,9 +1,13 @@
 <template>
-  <input type="text" placeholder="请输入内容" />
+  <!-- 子组件使用v-bind声明接收父组件数据 -->
+  <input type="text" :placeholder="tixing" />
 </template>
 
 <script>
-export default {};
+export default {
+  // 获取外部参数
+  props: ["tixing"],
+};
 </script>
 
 <style>
