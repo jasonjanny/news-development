@@ -1,8 +1,6 @@
 <template>
   <div id="app">
     <router-view />
-    <!-- 使用字体图标 -->
-    <span class="iconfont iconwode">123456</span>
   </div>
 </template>
 
@@ -34,11 +32,5 @@ ul,
 li,
 ol {
   list-style: none;
-}
-
-// 设置字体图标样式
-.iconwode {
-  font-size: 50px;
-  color: #bc9ee5;
 }
 </style>
