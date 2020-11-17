@@ -10,6 +10,7 @@
       v-model="value"
       :class="{ error: !isOk }"
       @blur="showErrMsg"
+      @change="$emit('send-user-msg', value)"
     />
   </div>
 </template>
@@ -40,6 +41,10 @@ export default {
         alert(this.err_message);
       }
     },
+    inputMsg() {
+      // console.log(this.value);
+      this.$emit("sendMsg", this.value);
+    },
   },
   watch: {
     // 使用简单校验方法
@@ -54,24 +59,13 @@ export default {
     // 使用正则表达式判断
     value(newValue) {
       if (this.rule.test(newValue)) {
-        console.log("合法");
+        // console.log("合法");
         this.isOk = true;
       } else {
-        console.log("不合格");
+        // console.log("不合格");
         this.isOk = false;
       }
     },
-    // inputValue() {
-    //   const reg = new RegExp(this.rule);
-    //   console.log(reg);
-    //   if (reg.test(this.inputValue)) {
-    //     this.isValid = true;
-    //     console.log("通过了校验");
-    //   } else {
-    //     this.isValid = false;
-    //     console.log(this.err_message);
-    //   }
-    // },
   },
 };
 </script>

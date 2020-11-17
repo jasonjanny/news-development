@@ -8,8 +8,9 @@
     <AuthInput
       type="text"
       placeholder="用户名/手机号码"
-      :rule="/^.{6}$/"
+      :rule="/^.{6,12}$/"
       err_message="请输入正确的用户名/手机号"
+      @send-user-msg="getUserMsg"
     />
     <!-- 密码 -->
     <AuthInput
@@ -17,6 +18,7 @@
       placeholder="密码"
       :rule="/^.{6,12}$/"
       err_message="请输入正确的6-12位字符或数字密码"
+      @send-user-msg="getUserPwd"
     />
     <AuthBtn btnText="马上登录" />
   </div>
@@ -28,9 +30,25 @@ import AuthInput from "../components/AuthInput";
 import AuthBtn from "../components/AuthBtn";
 
 export default {
+  data() {
+    return {
+      username: "",
+      password: "",
+    };
+  },
   components: {
     AuthInput,
     AuthBtn,
+  },
+  methods: {
+    getUserMsg(userVal) {
+      this.username = userVal;
+      // console.log(this.username);
+    },
+    getUserPwd(pwdVal) {
+      this.password = pwdVal;
+      // console.log(this.password);
+    },
   },
 };
 </script>
