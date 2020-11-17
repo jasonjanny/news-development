@@ -38,7 +38,8 @@ export default {
   methods: {
     showErrMsg() {
       if (!this.isOk) {
-        alert(this.err_message);
+        // alert(this.err_message);
+        this.$toast.fail(this.err_message);   
       }
     },
     inputMsg() {
