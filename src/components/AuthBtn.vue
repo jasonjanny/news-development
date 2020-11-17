@@ -1,35 +1,12 @@
 <template>
-  <button
-    class="loginBtn"
-    :username="username"
-    :password="password"
-    @click="sendLogin"
-  >
+  <button class="loginBtn" @click="$emit('sendajax')">
     {{ btnText }}
   </button>
 </template>
 
 <script>
 export default {
-  props: ["btnText", "username", "password"],
-  methods: {
-    sendLogin() {
-      this.$axios({
-        method: "post",
-        url: "http://157.122.54.189:9083/login",
-        data: { username: this.username, password: this.password },
-      })
-        .then((res) => {
-          console.log(res);
-          if (res.status === 200) {
-            alert(res.data.message);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-  },
+  props: ["btnText"],
 };
 </script>
 

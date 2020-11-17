@@ -24,29 +24,17 @@ export default {
       isOk: "true",
     };
   },
-  // methods: {
-  //   sendLogin() {
-  //     axios({
-  //       method: "post",
-  //       url: "http://157.122.54.189:9083/login",
-  //       data: { username: this.username, password: this.password },
-  //     }).then((res) => {
-  //       console.log(res);
-  //     });
-  //   },
-  // },
+
   methods: {
     showErrMsg() {
       if (!this.isOk) {
         // alert(this.err_message);
-        this.$toast.fail(this.err_message);   
+        // 使用vant ui
+        this.$toast.fail(this.err_message);
       }
     },
-    inputMsg() {
-      // console.log(this.value);
-      this.$emit("sendMsg", this.value);
-    },
   },
+
   watch: {
     // 使用简单校验方法
     /* value(newValue) {

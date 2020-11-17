@@ -10,7 +10,7 @@
       placeholder="用户名/手机号码"
       :rule="/^.{6,12}$/"
       err_message="请输入正确的用户名/手机号"
-      @send-user-msg="getUserMsg"
+      @send-user-msg="getUsername"
     />
     <!-- 密码 -->
     <AuthInput
@@ -18,9 +18,9 @@
       placeholder="密码"
       :rule="/^.{6,12}$/"
       err_message="请输入正确的6-12位字符或数字密码"
-      @send-user-msg="getUserPwd"
+      @send-user-msg="getPassword"
     />
-    <AuthBtn btnText="马上登录" />
+    <AuthBtn btnText="马上登录" @sendajax="sendLogin" />
   </div>
 </template>
 
@@ -41,13 +41,31 @@ export default {
     AuthBtn,
   },
   methods: {
-    getUserMsg(userVal) {
+    getUsername(userVal) {
       this.username = userVal;
       // console.log(this.username);
     },
-    getUserPwd(pwdVal) {
+    getPassword(pwdVal) {
       this.password = pwdVal;
       // console.log(this.password);
+    },
+
+    // 发送登录请求
+    sendLogin() {
+      this.$axios({
+        method: "post",
+        url: "http://157.122.54.189:9083/login",
+        data: { username: this.username, password: this.password },
+      })
+        .then((res) => {
+          console.log(res);
+          if (res.status === 200) {
+            alert(res.data.message);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };
