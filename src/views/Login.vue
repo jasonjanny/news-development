@@ -18,7 +18,7 @@
       :rule="/^.{6,12}$/"
       err_message="请输入正确的6-12位字符或数字密码"
     />
-    <AuthBtn />
+    <AuthBtn btnText="马上登录" />
   </div>
 </template>
 

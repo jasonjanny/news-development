@@ -1,9 +1,11 @@
 <template>
-  <button class="loginBtn">登录</button>
+  <button class="loginBtn">{{ btnText }}</button>
 </template>
 
 <script>
-export default {};
+export default {
+  props: ["btnText"],
+};
 </script>
 
 <style lang="less" scoped>

@@ -76,7 +76,7 @@ export default {
 };
 </script>
 
-<style lang='less'>
+<style lang='less' scoped>
 // 输入框
 .userInput {
   padding-bottom: 16/360 * 100vw;
