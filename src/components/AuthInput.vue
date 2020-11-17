@@ -1,42 +1,77 @@
 <template>
   <div class="userInput">
     <!-- vue 2.x不支持对属性使用插值{{}}的方式赋值，所以要使用v-bind指令（或简写“:”）来指定属性 -->
-    <input :type="type" :placeholder="placeholder" />
+    <!-- 使用三元表达式实现动态class -->
+    <!-- :class="isOk?'':'error'" -->
+    <!-- 使用vue提供的对象形式声明 -->
+    <input
+      :type="type"
+      :placeholder="placeholder"
+      v-model="value"
+      :class="{ error: !isOk }"
+      @blur="showErrMsg"
+    />
   </div>
 </template>
 
 <script>
 export default {
-  props: ["type", "placeholder"],
+  props: ["type", "placeholder", "rule", "err_message"],
   data() {
     return {
-      username: "",
-      password: "",
+      value: "",
+      isOk: "true",
     };
   },
+  // methods: {
+  //   sendLogin() {
+  //     axios({
+  //       method: "post",
+  //       url: "http://157.122.54.189:9083/login",
+  //       data: { username: this.username, password: this.password },
+  //     }).then((res) => {
+  //       console.log(res);
+  //     });
+  //   },
+  // },
   methods: {
-    sendLogin() {
-      axios({
-        method: "post",
-        url: "http://157.122.54.189:9083/login",
-        data: { username: this.username, password: this.password },
-      }).then((res) => {
-        console.log(res);
-      });
+    showErrMsg() {
+      if (!this.isOk) {
+        alert(this.err_message);
+      }
     },
   },
   watch: {
-    inputValue() {
-      const reg = new RegExp(this.rule);
-      console.log(reg);
-      if (reg.test(this.inputValue)) {
-        this.isValid = true;
-        console.log("通过了校验");
+    // 使用简单校验方法
+    /* value(newValue) {
+      if (newValue.length < 3) {
+        console.log("不合法");
       } else {
-        this.isValid = false;
-        console.log(this.err_message);
+        console.log("合格");
+      }
+    }, */
+
+    // 使用正则表达式判断
+    value(newValue) {
+      if (this.rule.test(newValue)) {
+        console.log("合法");
+        this.isOk = true;
+      } else {
+        console.log("不合格");
+        this.isOk = false;
       }
     },
+    // inputValue() {
+    //   const reg = new RegExp(this.rule);
+    //   console.log(reg);
+    //   if (reg.test(this.inputValue)) {
+    //     this.isValid = true;
+    //     console.log("通过了校验");
+    //   } else {
+    //     this.isValid = false;
+    //     console.log(this.err_message);
+    //   }
+    // },
   },
 };
 </script>
@@ -55,6 +90,10 @@ export default {
     outline: none;
     border-bottom: 1px solid #333;
     background-color: #f2f2f2;
+  }
+
+  .error {
+    border-color: red;
   }
 }
 </style>
