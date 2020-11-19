@@ -28,7 +28,8 @@
       err_message="请输入正确的6-12位字符或数字密码"
       @send-user-msg="getPassword"
     />
-    <AuthBtn btnText="立即注册" @sendajax="sendRegister" />
+    <!-- <AuthBtn btnText="立即注册" @sendajax="sendRegister" /> -->
+    <AuthBtn btnText="立即注册" @click.native="sendRegister" />
   </div>
 </template>
 

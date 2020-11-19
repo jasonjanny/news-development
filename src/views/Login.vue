@@ -20,7 +20,10 @@
       err_message="请输入正确的6-12位字符或数字密码"
       @send-user-msg="getPassword"
     />
-    <AuthBtn btnText="马上登录" @sendajax="sendLogin" />
+    <!-- <AuthBtn btnText="马上登录" @sendajax="sendLogin" /> -->
+    <!-- .native - 监听组件根元素的原生事件，主要是给自定义的组件添加原生事件 -->
+    <!-- 如果想在某个组件的根元素上绑定事件，直接使用 @click=''function' 是不生效的，可以添加.native修饰符 @click.native=''function'' -->
+    <AuthBtn btnText="马上登录" @click.native="sendLogin" />
   </div>
 </template>
 

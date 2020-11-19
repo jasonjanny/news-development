@@ -1,5 +1,7 @@
 <template>
-  <button class="Btn" @click="$emit('sendajax')">
+  <!-- <button class="Btn" @click="$emit('sendajax')"> -->
+  <!-- 另一种方式 -->
+  <button class="Btn">
     {{ btnText }}
   </button>
 </template>
