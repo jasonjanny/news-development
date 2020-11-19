@@ -67,25 +67,32 @@ export default {
 
     // 发送注册请求
     sendRegister() {
-      this.$axios({
-        method: "post",
-        url: "http://157.122.54.189:9083/register",
-        data: {
-          username: this.username,
-          password: this.password,
-          nickname: this.nickname,
-        },
-      })
-        .then((res) => {
-          console.log(res);
-          if (res.status === 200) {
-            // alert(res.data.message);
-            this.$toast.success(res.data.message);
-          }
+      if (this.username && this.password && this.nickname) {
+        this.$axios({
+          method: "post",
+          url: "http://157.122.54.189:9083/register",
+          data: {
+            username: this.username,
+            password: this.password,
+            nickname: this.nickname,
+          },
         })
-        .catch((err) => {
-          console.log(err);
-        });
+          .then((res) => {
+            console.log(res);
+            if (res.status === 200) {
+              // alert(res.data.message);
+              this.$toast.success({
+                message: res.data.message,
+                position: "bottom",
+              });
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } else {
+        this.$toast.fail("请输入信息");
+      }
     },
   },
 };
