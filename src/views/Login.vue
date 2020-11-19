@@ -36,6 +36,7 @@ export default {
       password: "",
     };
   },
+  // 注册子组件
   components: {
     AuthInput,
     AuthBtn,
@@ -52,20 +53,25 @@ export default {
 
     // 发送登录请求
     sendLogin() {
-      this.$axios({
-        method: "post",
-        url: "http://157.122.54.189:9083/login",
-        data: { username: this.username, password: this.password },
-      })
-        .then((res) => {
-          console.log(res);
-          if (res.status === 200) {
-            alert(res.data.message);
-          }
+      if (this.username && this.password) {
+        this.$axios({
+          method: "post",
+          url: "http://157.122.54.189:9083/login",
+          data: { username: this.username, password: this.password },
         })
-        .catch((err) => {
-          console.log(err);
-        });
+          .then((res) => {
+            console.log(res);
+            if (res.status === 200) {
+              // alert(res.data.message);
+              this.$toast.success(res.data.message);
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } else {
+        this.$toast.fail("请输入信息");
+      }
     },
   },
 };

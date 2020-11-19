@@ -1,5 +1,5 @@
 <template>
-  <button class="loginBtn" @click="$emit('sendajax')">
+  <button class="Btn" @click="$emit('sendajax')">
     {{ btnText }}
   </button>
 </template>
@@ -12,7 +12,7 @@ export default {
 
 <style lang="less" scoped>
 // 登录按钮
-.loginBtn {
+.Btn {
   width: 100%;
   height: 48/360 * 100vw;
   margin-top: 48/360 * 100vw;

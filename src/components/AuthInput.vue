@@ -29,7 +29,7 @@ export default {
     showErrMsg() {
       if (!this.isOk) {
         // alert(this.err_message);
-        // 使用vant ui
+        // 使用vant-ui
         this.$toast.fail(this.err_message);
       }
     },
