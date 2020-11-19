@@ -30,7 +30,10 @@ export default {
       if (!this.isOk) {
         // alert(this.err_message);
         // 使用vant-ui
-        this.$toast.fail(this.err_message);
+        this.$toast({
+          message: this.err_message,
+          position: "bottom",
+        });
       }
     },
   },

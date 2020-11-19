@@ -78,7 +78,8 @@ export default {
         .then((res) => {
           console.log(res);
           if (res.status === 200) {
-            alert(res.data.message);
+            // alert(res.data.message);
+            this.$toast.success(res.data.message);
           }
         })
         .catch((err) => {

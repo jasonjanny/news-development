@@ -63,7 +63,11 @@ export default {
             console.log(res);
             if (res.status === 200) {
               // alert(res.data.message);
-              this.$toast.success(res.data.message);
+              // this.$toast.success(res.data.message);
+              this.$toast.success({
+                message: res.data.message,
+                position: "bottom",
+              });
             }
           })
           .catch((err) => {
