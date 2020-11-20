@@ -1,10 +1,7 @@
 <template>
   <div class="editContainer">
     <!-- 头部 -->
-    <div class="editHeader">
-      <span class="iconfont iconjiantou" @click="back"></span>
-      <p>编辑资料</p>
-    </div>
+    <UserHeader title="编辑资料" />
     <!-- 头像 -->
     <div class="iconImg">
       <img :src="this.$axios.defaults.baseURL + data.head_img" alt="" />
@@ -18,6 +15,7 @@
 
 <script>
 import UserHandle from "../../components/UserHandle";
+import UserHeader from "../../components/UserHeader";
 export default {
   data() {
     return {
@@ -26,6 +24,7 @@ export default {
   },
   components: {
     UserHandle,
+    UserHeader,
   },
   created() {
     this.$axios({
@@ -41,11 +40,6 @@ export default {
       console.log(this.data);
     });
   },
-  methods: {
-    back() {
-      this.$router.push("/usercenter");
-    },
-  },
 };
 </script>
 
@@ -54,24 +48,7 @@ export default {
   min-height: 100vh;
   padding: 0 20/360 * 100vw;
   background-color: #fff;
-  // 头部
-  .editHeader {
-    display: flex;
-    align-items: center;
-    height: 40/360 * 100vw;
-    padding-top: 10/360 * 100vw;
-    font-weight: 700;
-    .iconjiantou {
-      color: #888;
-      font-size: 16/360 * 100vw;
-    }
-    p {
-      flex: 1;
-      color: #333;
-      margin-right: 10/360 * 100vw;
-      font-size: 14/360 * 100vw;
-    }
-  }
+
   // 头像
   .iconImg {
     width: 70/360 * 100vw;
