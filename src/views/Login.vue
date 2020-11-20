@@ -77,7 +77,7 @@ export default {
                 position: "bottom",
               });
 
-              this.$router("/usercenter");
+              this.$router.push("/usercenter");
             }
           })
           .catch((err) => {

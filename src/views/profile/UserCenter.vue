@@ -35,6 +35,7 @@
     <UserHandle list="我的跟帖" about="跟帖/回复" />
     <UserHandle list="我的收藏" about="文章/视频" />
     <UserHandle list="设置" />
+    <UserHandle list="退出" @click.native="logout" />
   </div>
 </template>
 
@@ -68,6 +69,15 @@ export default {
       this.data = res.data.data;
       // console.log(this.data);
     });
+  },
+
+  methods: {
+    logout() {
+      localStorage.removeItem("token");
+      localStorage.removeItem("id");
+      this.$toast("退出成功");
+      this.$router.replace("/login");
+    },
   },
 };
 </script>
