@@ -32,4 +32,21 @@ const router = new VueRouter({
   routes
 })
 
+// 路由守卫
+router.beforeEach((to, from, next) => {
+  // 判断是否是跳转到用户中心
+  if (to.path === "/usercenter") {
+    // 判断是否存在 token
+    if (localStorage.getItem('token')) {
+      return next();
+    } else {
+      // 没有token表示没有登录就要访问用户中心
+      // catch 捕获错误
+      return router.push('/login').catch(err => { });
+    }
+  }
+
+  return next();
+})
+
 export default router
