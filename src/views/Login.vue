@@ -61,28 +61,24 @@ export default {
           method: "post",
           url: "/login",
           data: { username: this.username, password: this.password },
-        })
-          .then((res) => {
-            console.log(res);
-            if (res.data.message === "登录成功") {
-              // alert(res.data.message);
-              const data = res.data;
-              // console.log(data);
-              // 保存token和id到本地
-              localStorage.setItem("token", data.data.token);
-              localStorage.setItem("id", data.data.user.id);
-              // console.log(localStorage.getItem("token"));
-              this.$toast.success({
-                message: res.data.message,
-                position: "bottom",
-              });
+        }).then((res) => {
+          // console.log(res);
+          if (res.data.message === "登录成功") {
+            // alert(res.data.message);
+            const data = res.data;
+            // console.log(data);
+            // 保存token和id到本地
+            localStorage.setItem("token", data.data.token);
+            localStorage.setItem("id", data.data.user.id);
+            // console.log(localStorage.getItem("token"));
+            this.$toast.success({
+              message: res.data.message,
+              position: "bottom",
+            });
 
-              this.$router.push("/usercenter");
-            }
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+            this.$router.push("/usercenter");
+          }
+        });
       } else {
         this.$toast.fail("请输入信息");
       }
