@@ -63,12 +63,18 @@ export default {
         // 鉴权，数据验证
         Authorization: token,
       },
-    }).then((res) => {
-      console.log(res);
-      // 将获取到的数据存储到data中，供渲染数据信息
-      this.data = res.data.data;
-      // console.log(this.data);
-    });
+    })
+      .then((res) => {
+        console.log(res);
+        // 将获取到的数据存储到data中，供渲染数据信息
+        this.data = res.data.data;
+        // console.log(this.data);
+      })
+      .catch((err) => {
+        console.log(err); // 打印错误信息
+      });
+    // 跳转到登录页
+    this.$router.push("/login");
   },
 
   methods: {
