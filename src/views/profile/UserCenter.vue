@@ -58,7 +58,7 @@ export default {
 
     this.$axios({
       method: "get",
-      url: "http://157.122.54.189:9083/user/" + id,
+      url: "/user/" + id,
       headers: {
         // 鉴权，数据验证
         Authorization: token,
@@ -72,9 +72,11 @@ export default {
       })
       .catch((err) => {
         console.log(err); // 打印错误信息
+        /* if (err.data.message === "用户信息验证失败") {
+          // 跳转到登录页
+          this.$router.push("/login");
+        } */
       });
-    // 跳转到登录页
-    this.$router.push("/login");
   },
 
   methods: {

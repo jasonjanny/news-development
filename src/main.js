@@ -2,12 +2,14 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 
-import axios from "axios";
+Vue.config.productionTip = false
 
+// 导入axios库
+import axios from "axios";
+// 设置基准路径
+axios.defaults.baseURL = 'http://157.122.54.189:9083';
 // 绑定到原型
 Vue.prototype.$axios = axios;
-
-Vue.config.productionTip = false
 
 // 1. 导入组件库
 import Vant from 'vant'

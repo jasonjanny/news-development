@@ -70,7 +70,7 @@ export default {
       if (this.username && this.password && this.nickname) {
         this.$axios({
           method: "post",
-          url: "http://157.122.54.189:9083/register",
+          url: "/register",
           data: {
             username: this.username,
             password: this.password,
