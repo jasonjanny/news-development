@@ -25,10 +25,10 @@ export default {
   border-bottom: 1px solid #ccc;
   p {
     color: #949494dd;
-    font-size: 15/360 * 100vw;
+    font-size: 14/360 * 100vw;
   }
   span {
-    font-size: 16/360 * 100vw;
+    font-size: 15/360 * 100vw;
   }
 }
 </style>

@@ -5,6 +5,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import UserCenter from '../views/profile/UserCenter.vue'
+import UserEdit from '../views/profile/UserEdit.vue'
 
 Vue.use(VueRouter)
 
@@ -25,6 +26,10 @@ const routes = [
   {
     path: '/usercenter',
     component: UserCenter
+  },
+  {
+    path: '/useredit',
+    component: UserEdit
   }
 ]
 
