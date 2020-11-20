@@ -4,14 +4,23 @@
     <div class="user">
       <!-- 用户头像 -->
       <div class="userImg">
-        <img src="../assets/微信图片_20201104205241.jpg" alt="" />
+        <img
+          v-if="data.head_img"
+          :src="'http://157.122.54.189:9083' + data.head_img"
+          alt=""
+        />
+        <img v-else src="@/assets/1.jpg" alt="" />
       </div>
       <!-- 用户信息 -->
       <div class="userDetail">
-        <span class="iconfont iconxingbienan"></span>
-        <span class="nickname">火星网友</span>
+        <!-- <span class="iconfont iconxingbienan"></span> -->
+        <span
+          class="iconfont"
+          :class="data.gender === 1 ? 'iconxingbienan' : 'iconxingbienv'"
+        ></span>
+        <span class="nickname">{{ data.nickname }}</span>
         <p>
-          <span class="time">2019-10-10</span>
+          <span class="time">2020-10-10</span>
         </p>
       </div>
       <!-- 更多信息 -->
@@ -30,10 +39,35 @@
 </template>
 
 <script>
-import UserHandle from "../components/UserHandle";
+import UserHandle from "../../components/UserHandle";
 export default {
+  data() {
+    return {
+      data: "",
+    };
+  },
   components: {
     UserHandle,
+  },
+  mounted() {
+    const id = localStorage.getItem("id");
+    console.log(id);
+    const token = localStorage.getItem("token");
+    // console.log(token);
+
+    this.$axios({
+      method: "get",
+      url: "http://157.122.54.189:9083/user/" + id,
+      headers: {
+        // 鉴权，数据验证
+        Authorization: token,
+      },
+    }).then((res) => {
+      console.log(res);
+      // 将获取到的数据存储到data中，供渲染数据信息
+      this.data = res.data.data;
+      // console.log(this.data);
+    });
   },
 };
 </script>
@@ -41,7 +75,7 @@ export default {
 <style lang="less" scoped>
 .container {
   height: 600/360 * 100vw;
-  background-color: #f2f2f2;
+  background-color: #fff;
 }
 // 用户信息
 .user {
@@ -53,7 +87,6 @@ export default {
   .userImg {
     width: 70/360 * 100vw;
     height: 70/360 * 100vw;
-    background-color: #6cf;
     border-radius: 50%;
     img {
       width: 100%;
@@ -69,6 +102,10 @@ export default {
     .iconxingbienan {
       font-size: 18/360 * 100vw;
       color: #6cf;
+    }
+    .iconxingbienv {
+      font-size: 18/360 * 100vw;
+      color: hotpink;
     }
     .nickname {
       margin-left: 8/360 * 100vw;
@@ -94,7 +131,7 @@ export default {
 }
 // 装饰边框
 .border {
-  height: 10/360 * 100vw;
+  height: 4/360 * 100vw;
   background-color: #ccc;
 }
 </style>

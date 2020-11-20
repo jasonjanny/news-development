@@ -16,7 +16,7 @@
     <AuthInput
       type="password"
       placeholder="密码"
-      :rule="/^.{6,12}$/"
+      :rule="/^.{3,12}$/"
       err_message="请输入正确的6-12位字符或数字密码"
       @send-user-msg="getPassword"
     />
@@ -64,13 +64,20 @@ export default {
         })
           .then((res) => {
             console.log(res);
-            if (res.status === 200) {
+            if (res.data.message === "登录成功") {
               // alert(res.data.message);
-              // this.$toast.success(res.data.message);
+              const data = res.data;
+              // console.log(data);
+              // 保存token和id到本地
+              localStorage.setItem("token", data.data.token);
+              localStorage.setItem("id", data.data.user.id);
+              // console.log(localStorage.getItem("token"));
               this.$toast.success({
                 message: res.data.message,
                 position: "bottom",
               });
+
+              this.$router("/usercenter");
             }
           })
           .catch((err) => {
