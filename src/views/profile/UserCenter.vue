@@ -6,7 +6,7 @@
       <div class="userImg">
         <img
           v-if="data.head_img"
-          :src="'http://157.122.54.189:9083' + data.head_img"
+          :src="this.$axios.defaults.baseURL + data.head_img"
           alt=""
         />
         <img v-else src="@/assets/1.jpg" alt="" />
@@ -25,7 +25,7 @@
       </div>
       <!-- 更多信息 -->
       <div class="userMore">
-        <span class="iconfont iconjiantou1"></span>
+        <span class="iconfont iconjiantou1" @click="userEdit"></span>
       </div>
     </div>
     <!-- 装饰边框 -->
@@ -41,6 +41,7 @@
 
 <script>
 import UserHandle from "../../components/UserHandle";
+import UserEdit from "../profile/UserEdit";
 export default {
   data() {
     return {
@@ -63,20 +64,16 @@ export default {
         // 鉴权，数据验证
         Authorization: token,
       },
-    })
-      .then((res) => {
-        console.log(res);
-        // 将获取到的数据存储到data中，供渲染数据信息
-        this.data = res.data.data;
-        // console.log(this.data);
-      })
-      .catch((err) => {
-        console.log(err); // 打印错误信息
-        /* if (err.data.message === "用户信息验证失败") {
-          // 跳转到登录页
-          this.$router.push("/login");
-        } */
-      });
+    }).then((res) => {
+      // console.log(res);
+      if (res.data.message === "用户信息验证失败") {
+        // 跳转到登录页
+        this.$router.push("/login");
+      }
+      // 将获取到的数据存储到data中，供渲染数据信息
+      this.data = res.data.data;
+      // console.log(this.data);
+    });
   },
 
   methods: {
@@ -85,6 +82,9 @@ export default {
       localStorage.removeItem("id");
       this.$toast("退出成功");
       this.$router.replace("/login");
+    },
+    userEdit() {
+      this.$router.push("/useredit");
     },
   },
 };
