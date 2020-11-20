@@ -23,7 +23,9 @@ export default {
   display: flex;
   align-items: center;
   height: 40/360 * 100vw;
+  padding: 0 20/360 * 100vw;
   padding-top: 10/360 * 100vw;
+  margin-bottom: 20/360 * 100vw;
   font-weight: 700;
   .iconjiantou {
     color: #888;
