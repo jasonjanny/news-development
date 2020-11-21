@@ -54,7 +54,6 @@ export default {
     width: 70/360 * 100vw;
     height: 70/360 * 100vw;
     margin: 15/360 * 100vw auto 25/360 * 100vw;
-    background-color: #6cf;
     border-radius: 50%;
     img {
       width: 100%;
