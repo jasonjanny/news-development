@@ -8,7 +8,7 @@
     </div>
 
     <UserHandle list="昵称" :about="data.nickname" />
-    <UserHandle list="密码" :about="data.password" />
+    <UserHandle list="密码" about="******" />
     <UserHandle list="性别" :about="data.gender === 1 ? '男' : '女'" />
   </div>
 </template>
