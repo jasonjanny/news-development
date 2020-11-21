@@ -12,20 +12,37 @@
       :about="data.nickname"
       @click.native="isShowNickname = true"
     />
-    <UserHandle list="密码" about="******" />
+    <UserHandle
+      list="密码"
+      about="******"
+      @click.native="isShowPassword = true"
+    />
     <UserHandle list="性别" :about="data.gender === 1 ? '男' : '女'" />
 
-    <!-- 弹窗 -->
+    <!-- 昵称弹窗 -->
     <van-dialog
       v-model="isShowNickname"
       title="修改昵称"
       show-cancel-button
-      @confirm="setNewNickname"
+      @confirm="editFile({ nickname: newNickname })"
     >
       <van-field
         v-model="newNickname"
         label="新昵称"
         placeholder="请输入新昵称"
+      />
+    </van-dialog>
+    <!-- 密码弹窗 -->
+    <van-dialog
+      v-model="isShowPassword"
+      title="修改密码"
+      show-cancel-button
+      @confirm="editFile({ password: newPassword })"
+    >
+      <van-field
+        v-model="newPassword"
+        label="新密码"
+        placeholder="请输入新密码"
       />
     </van-dialog>
   </div>
@@ -41,6 +58,8 @@ export default {
       data: "",
       isShowNickname: false,
       newNickname: "",
+      isShowPassword: false,
+      newPassword: "",
     };
   },
   components: {
@@ -68,7 +87,8 @@ export default {
         // console.log(this.data);
       });
     },
-    setNewNickname() {
+    // 编辑昵称
+    /*  setNewNickname() {
       this.$axios({
         method: "post",
         url: "/user_update/" + localStorage.getItem("id"),
@@ -81,7 +101,51 @@ export default {
         },
       }).then((res) => {
         console.log(res);
+        if (res.data.message === "修改成功") {
+          this.$toast.success("昵称修改成功");
+        }
         // 重新获取一遍新数据
+        this.loadPage();
+      });
+    }, */
+    // 编辑密码
+    /* setNewPassword() {
+      this.$axios({
+        method: "post",
+        url: "/user_update/" + localStorage.getItem("id"),
+        headers: {
+          // 鉴权，数据验证
+          Authorization: localStorage.getItem("token"),
+        },
+        data: {
+          password: this.newPassword,
+        },
+      }).then((res) => {
+        console.log(res);
+        // 重新获取一遍新数据
+        if (res.data.message === "修改成功") {
+          this.$toast.success("密码修改成功");
+        }
+        this.loadPage();
+      });
+    }, */
+
+    // 修改资料
+    editFile(newData) {
+      this.$axios({
+        method: "post",
+        url: "/user_update/" + localStorage.getItem("id"),
+        headers: {
+          // 鉴权，数据验证
+          Authorization: localStorage.getItem("token"),
+        },
+        data: newData,
+      }).then((res) => {
+        console.log(res);
+        // 重新获取一遍新数据
+        if (res.data.message === "修改成功") {
+          this.$toast.success("密码修改成功");
+        }
         this.loadPage();
       });
     },
