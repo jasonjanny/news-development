@@ -49,20 +49,25 @@ export default {
     UserImg,
   },
   created() {
-    this.$axios({
-      method: "get",
-      url: "/user/" + localStorage.getItem("id"),
-      headers: {
-        // 鉴权，数据验证
-        Authorization: localStorage.getItem("token"),
-      },
-    }).then((res) => {
-      console.log(res);
-      this.data = res.data.data;
-      console.log(this.data);
-    });
+    // 页面挂载完之后就获取数据
+    this.loadPage();
   },
   methods: {
+    // 获取数据
+    loadPage() {
+      this.$axios({
+        method: "get",
+        url: "/user/" + localStorage.getItem("id"),
+        headers: {
+          // 鉴权，数据验证
+          Authorization: localStorage.getItem("token"),
+        },
+      }).then((res) => {
+        // console.log(res);
+        this.data = res.data.data;
+        // console.log(this.data);
+      });
+    },
     setNewNickname() {
       this.$axios({
         method: "post",
@@ -76,6 +81,8 @@ export default {
         },
       }).then((res) => {
         console.log(res);
+        // 重新获取一遍新数据
+        this.loadPage();
       });
     },
   },
