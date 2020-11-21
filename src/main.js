@@ -10,7 +10,7 @@ import axios from "axios";
 axios.defaults.baseURL = 'http://157.122.54.189:9083';
 // 绑定到原型
 Vue.prototype.$axios = axios;
-// axios拦截器
+// axios响应拦截器
 axios.interceptors.response.use(res => {
   // console.log(res);
 
@@ -34,6 +34,17 @@ axios.interceptors.response.use(res => {
 
   // 放行
   return res;
+});
+
+// axios请求拦截器
+axios.interceptors.request.use(config => {
+  // 如果发送请求的时候没有token而本地又有token数据
+  if (!config.headers.Authorization && localStorage.getItem('token')) {
+    // 在请求头带上token
+    config.headers.Authorization = localStorage.getItem('token');
+  }
+  // 放行
+  return config;
 });
 
 // 1. 导入组件库

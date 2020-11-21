@@ -97,10 +97,10 @@ export default {
       this.$axios({
         method: "get",
         url: "/user/" + localStorage.getItem("id"),
-        headers: {
+        /* headers: {
           // 鉴权，数据验证
           Authorization: localStorage.getItem("token"),
-        },
+        }, */
       }).then((res) => {
         // console.log(res);
         this.data = res.data.data;
@@ -113,10 +113,10 @@ export default {
       this.$axios({
         method: "post",
         url: "/user_update/" + localStorage.getItem("id"),
-        headers: {
+        /* headers: {
           // 鉴权，数据验证
           Authorization: localStorage.getItem("token"),
-        },
+        }, */
         data: newData,
       }).then((res) => {
         console.log(res);
@@ -144,10 +144,10 @@ export default {
       this.$axios({
         method: "post",
         url: "/upload",
-        headers: {
+        /* headers: {
           // 鉴权，数据验证
           Authorization: localStorage.getItem("token"),
-        },
+        }, */
         data: data,
       }).then((res) => {
         console.log(res);
@@ -159,10 +159,10 @@ export default {
         this.$axios({
           method: "post",
           url: "/user_update/" + localStorage.getItem("id"),
-          headers: {
+          /*  headers: {
             // 鉴权，数据验证
             Authorization: localStorage.getItem("token"),
-          },
+          }, */
           data: {
             head_img: this.img,
           },

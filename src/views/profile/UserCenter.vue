@@ -55,10 +55,6 @@ export default {
     this.$axios({
       method: "get",
       url: "/user/" + id,
-      headers: {
-        // 鉴权，数据验证
-        Authorization: token,
-      },
     }).then((res) => {
       // console.log(res);
       // 将获取到的数据存储到data中，供渲染数据信息
