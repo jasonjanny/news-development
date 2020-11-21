@@ -45,7 +45,7 @@ const router = new VueRouter({
 // 路由守卫
 router.beforeEach((to, from, next) => {
   // 判断是否是跳转到用户中心
-  if (to.path === "/usercenter") {
+  if (to.path === "/usercenter" || to.path === "/useredit") {
     // 判断是否存在 token
     if (localStorage.getItem('token')) {
       return next();
