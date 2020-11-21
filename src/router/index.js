@@ -26,11 +26,17 @@ const routes = [
   },
   {
     path: '/usercenter',
-    component: UserCenter
+    component: UserCenter,
+    meta: {
+      needAuth: true
+    }
   },
   {
     path: '/useredit',
-    component: UserEdit
+    component: UserEdit,
+    meta: {
+      needAuth: true
+    }
   },
   {
     path: '/userfocus',
@@ -57,12 +63,24 @@ router.beforeEach((to, from, next) => {
   } */
 
   // 将需要校验的页面配置成一个数组
-  const pageNeedAuth = [
+  /* const pageNeedAuth = [
     '/usercenter',
     '/useredit'
   ],
 
   if (pageNeedAuth.indexOf(to.path) > -1) {
+    // 判断是否存在 token
+    if (localStorage.getItem('token')) {
+      return next();
+    } else {
+      // 没有token表示没有登录就要访问用户中心
+      // catch 捕获错误
+      return router.push('/login').catch(err => { });
+    }
+  } */
+
+  // 利用路由 meta 实现
+  if (to.meta.needAuth) {
     // 判断是否存在 token
     if (localStorage.getItem('token')) {
       return next();
