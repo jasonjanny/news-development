@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <!-- 用户信息 -->
-    <div class="user">
+    <div class="user" @click="userEdit">
       <!-- 用户头像 -->
       <UserImg :data="data" />
       <!-- 用户信息 -->
@@ -18,7 +18,7 @@
       </div>
       <!-- 更多信息 -->
       <div class="userMore">
-        <span class="iconfont iconjiantou1" @click="userEdit"></span>
+        <span class="iconfont iconjiantou1"></span>
       </div>
     </div>
     <!-- 装饰边框 -->
@@ -27,7 +27,7 @@
     <UserHandle list="我的关注" about="关注的用户" />
     <UserHandle list="我的跟帖" about="跟帖/回复" />
     <UserHandle list="我的收藏" about="文章/视频" />
-    <UserHandle list="设置" />
+    <UserHandle list="设置" @click.native="userEdit" />
     <UserHandle list="退出" @click.native="logout" />
   </div>
 </template>
