@@ -12,7 +12,7 @@ axios.defaults.baseURL = 'http://157.122.54.189:9083';
 Vue.prototype.$axios = axios;
 // axios拦截器
 axios.interceptors.response.use(res => {
-  console.log(res);
+  // console.log(res);
 
   const errRegExp = /^4\d{2}$/;
   const { message, statusCode } = res.data;

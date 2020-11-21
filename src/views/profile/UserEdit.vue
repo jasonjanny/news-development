@@ -5,6 +5,7 @@
     <!-- 头像 -->
     <div class="iconImg">
       <UserImg :data="data" />
+      <van-uploader :after-read="afterRead" />
     </div>
 
     <UserHandle
@@ -17,7 +18,11 @@
       about="******"
       @click.native="isShowPassword = true"
     />
-    <UserHandle list="性别" :about="data.gender === 1 ? '男' : '女'" />
+    <UserHandle
+      list="性别"
+      :about="data.gender === 1 ? '男' : '女'"
+      @click.native="isShowGender = true"
+    />
 
     <!-- 昵称弹窗 -->
     <van-dialog
@@ -45,6 +50,14 @@
         placeholder="请输入新密码"
       />
     </van-dialog>
+    <!-- 性别编辑弹窗 -->
+    <van-action-sheet
+      v-model="isShowGender"
+      :actions="genderList"
+      cancel-text="取消"
+      description="请选择性别"
+      @select="genderSelect"
+    />
   </div>
 </template>
 
@@ -60,6 +73,13 @@ export default {
       newNickname: "",
       isShowPassword: false,
       newPassword: "",
+      isShowGender: false,
+      newGender: "",
+      genderList: [
+        { name: "男", gender: 1 },
+        { name: "女", gender: 0 },
+      ],
+      img: "",
     };
   },
   components: {
@@ -87,48 +107,6 @@ export default {
         // console.log(this.data);
       });
     },
-    // 编辑昵称
-    /*  setNewNickname() {
-      this.$axios({
-        method: "post",
-        url: "/user_update/" + localStorage.getItem("id"),
-        headers: {
-          // 鉴权，数据验证
-          Authorization: localStorage.getItem("token"),
-        },
-        data: {
-          nickname: this.newNickname,
-        },
-      }).then((res) => {
-        console.log(res);
-        if (res.data.message === "修改成功") {
-          this.$toast.success("昵称修改成功");
-        }
-        // 重新获取一遍新数据
-        this.loadPage();
-      });
-    }, */
-    // 编辑密码
-    /* setNewPassword() {
-      this.$axios({
-        method: "post",
-        url: "/user_update/" + localStorage.getItem("id"),
-        headers: {
-          // 鉴权，数据验证
-          Authorization: localStorage.getItem("token"),
-        },
-        data: {
-          password: this.newPassword,
-        },
-      }).then((res) => {
-        console.log(res);
-        // 重新获取一遍新数据
-        if (res.data.message === "修改成功") {
-          this.$toast.success("密码修改成功");
-        }
-        this.loadPage();
-      });
-    }, */
 
     // 修改资料
     editFile(newData) {
@@ -144,9 +122,55 @@ export default {
         console.log(res);
         // 重新获取一遍新数据
         if (res.data.message === "修改成功") {
-          this.$toast.success("密码修改成功");
+          this.$toast.success(res.data.message);
         }
         this.loadPage();
+      });
+    },
+    // 编辑性别
+    genderSelect(sex) {
+      // console.log(sex);
+      const gender = sex.gender;
+      this.editFile({ gender: gender });
+    },
+
+    // 编辑头像
+    afterRead(fileObj) {
+      // console.log(fileObj);
+
+      const data = new FormData();
+      data.append("file", fileObj.file);
+      // 头像上传至服务器
+      this.$axios({
+        method: "post",
+        url: "/upload",
+        headers: {
+          // 鉴权，数据验证
+          Authorization: localStorage.getItem("token"),
+        },
+        data: data,
+      }).then((res) => {
+        console.log(res);
+        // console.log(res.data.data.url);
+        this.img = res.data.data.url;
+        // console.log(this.img);
+
+        // 发送数据编辑头像
+        this.$axios({
+          method: "post",
+          url: "/user_update/" + localStorage.getItem("id"),
+          headers: {
+            // 鉴权，数据验证
+            Authorization: localStorage.getItem("token"),
+          },
+          data: {
+            head_img: this.img,
+          },
+        }).then((res) => {
+          // console.log(res);
+          // 重新获取一遍新数据
+          this.loadPage();
+        });
       });
     },
   },
@@ -161,10 +185,16 @@ export default {
 
   // 头像
   .iconImg {
+    position: relative;
+    display: flex;
     width: 70/360 * 100vw;
     height: 70/360 * 100vw;
     margin: 15/360 * 100vw auto 25/360 * 100vw;
     border-radius: 50%;
+    .van-uploader {
+      position: absolute;
+      opacity: 0;
+    }
   }
 }
 </style>
