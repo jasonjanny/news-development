@@ -61,10 +61,6 @@ export default {
       },
     }).then((res) => {
       // console.log(res);
-      if (res.data.message === "用户信息验证失败") {
-        // 跳转到登录页
-        this.$router.push("/login");
-      }
       // 将获取到的数据存储到data中，供渲染数据信息
       this.data = res.data.data;
       // console.log(this.data);

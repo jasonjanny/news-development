@@ -2,7 +2,7 @@
   <div class="userImg">
     <img
       v-if="data.head_img"
-      :src="this.$axios.defaults.baseURL + data.head_img"
+      :src="$axios.defaults.baseURL + data.head_img"
       alt=""
     />
     <img v-else src="@/assets/1.jpg" alt="" />

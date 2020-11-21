@@ -76,20 +76,16 @@ export default {
             password: this.password,
             nickname: this.nickname,
           },
-        })
-          .then((res) => {
-            console.log(res);
-            if (res.status === 200) {
-              // alert(res.data.message);
-              this.$toast.success({
-                message: res.data.message,
-                position: "bottom",
-              });
-            }
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        }).then((res) => {
+          console.log(res);
+          if (res.status === 200) {
+            // alert(res.data.message);
+            this.$toast.success({
+              message: res.data.message,
+              position: "bottom",
+            });
+          }
+        });
       } else {
         this.$toast.fail("请输入信息");
       }
