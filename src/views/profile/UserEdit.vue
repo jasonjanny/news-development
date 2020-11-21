@@ -4,7 +4,7 @@
     <UserHeader title="编辑资料" />
     <!-- 头像 -->
     <div class="iconImg">
-      <img :src="this.$axios.defaults.baseURL + data.head_img" alt="" />
+      <UserImg :data="data" />
     </div>
 
     <UserHandle list="昵称" :about="data.nickname" />
@@ -16,6 +16,7 @@
 <script>
 import UserHandle from "../../components/UserHandle";
 import UserHeader from "../../components/UserHeader";
+import UserImg from "../../components/UserImg";
 export default {
   data() {
     return {
@@ -25,6 +26,7 @@ export default {
   components: {
     UserHandle,
     UserHeader,
+    UserImg,
   },
   created() {
     this.$axios({
@@ -55,11 +57,6 @@ export default {
     height: 70/360 * 100vw;
     margin: 15/360 * 100vw auto 25/360 * 100vw;
     border-radius: 50%;
-    img {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-    }
   }
 }
 </style>

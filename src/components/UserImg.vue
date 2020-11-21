@@ -15,7 +15,7 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 .userImg {
   width: 70/360 * 100vw;
   height: 70/360 * 100vw;
