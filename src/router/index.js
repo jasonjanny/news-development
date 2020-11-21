@@ -45,7 +45,24 @@ const router = new VueRouter({
 // 路由守卫
 router.beforeEach((to, from, next) => {
   // 判断是否是跳转到用户中心
-  if (to.path === "/usercenter" || to.path === "/useredit") {
+  /* if (to.path === "/usercenter" || to.path === "/useredit") {
+    // 判断是否存在 token
+    if (localStorage.getItem('token')) {
+      return next();
+    } else {
+      // 没有token表示没有登录就要访问用户中心
+      // catch 捕获错误
+      return router.push('/login').catch(err => { });
+    }
+  } */
+
+  // 将需要校验的页面配置成一个数组
+  const pageNeedAuth = [
+    '/usercenter',
+    '/useredit'
+  ],
+
+  if (pageNeedAuth.indexOf(to.path) > -1) {
     // 判断是否存在 token
     if (localStorage.getItem('token')) {
       return next();
