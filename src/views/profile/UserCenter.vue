@@ -3,14 +3,7 @@
     <!-- 用户信息 -->
     <div class="user">
       <!-- 用户头像 -->
-      <div class="userImg">
-        <img
-          v-if="data.head_img"
-          :src="this.$axios.defaults.baseURL + data.head_img"
-          alt=""
-        />
-        <img v-else src="@/assets/1.jpg" alt="" />
-      </div>
+      <UserImg :data="data" />
       <!-- 用户信息 -->
       <div class="userDetail">
         <!-- <span class="iconfont iconxingbienan"></span> -->
@@ -41,6 +34,7 @@
 
 <script>
 import UserHandle from "../../components/UserHandle";
+import UserImg from "../../components/UserImg";
 import UserEdit from "../profile/UserEdit";
 export default {
   data() {
@@ -50,6 +44,7 @@ export default {
   },
   components: {
     UserHandle,
+    UserImg,
   },
   mounted() {
     const id = localStorage.getItem("id");
@@ -102,16 +97,6 @@ export default {
   width: 100%;
   height: 90/360 * 100vw;
   padding: 24/360 * 100vw;
-  .userImg {
-    width: 70/360 * 100vw;
-    height: 70/360 * 100vw;
-    border-radius: 50%;
-    img {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-    }
-  }
 
   .userDetail {
     width: 100/360 * 100vw;
