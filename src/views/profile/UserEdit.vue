@@ -7,9 +7,27 @@
       <UserImg :data="data" />
     </div>
 
-    <UserHandle list="昵称" :about="data.nickname" />
+    <UserHandle
+      list="昵称"
+      :about="data.nickname"
+      @click.native="isShowNickname = true"
+    />
     <UserHandle list="密码" about="******" />
     <UserHandle list="性别" :about="data.gender === 1 ? '男' : '女'" />
+
+    <!-- 弹窗 -->
+    <van-dialog
+      v-model="isShowNickname"
+      title="修改昵称"
+      show-cancel-button
+      @confirm="setNewNickname"
+    >
+      <van-field
+        v-model="newNickname"
+        label="新昵称"
+        placeholder="请输入新昵称"
+      />
+    </van-dialog>
   </div>
 </template>
 
@@ -21,6 +39,8 @@ export default {
   data() {
     return {
       data: "",
+      isShowNickname: false,
+      newNickname: "",
     };
   },
   components: {
@@ -41,6 +61,23 @@ export default {
       this.data = res.data.data;
       console.log(this.data);
     });
+  },
+  methods: {
+    setNewNickname() {
+      this.$axios({
+        method: "post",
+        url: "/user_update/" + localStorage.getItem("id"),
+        headers: {
+          // 鉴权，数据验证
+          Authorization: localStorage.getItem("token"),
+        },
+        data: {
+          nickname: this.newNickname,
+        },
+      }).then((res) => {
+        console.log(res);
+      });
+    },
   },
 };
 </script>
