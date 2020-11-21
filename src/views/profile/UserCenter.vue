@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <!-- 用户信息 -->
-    <div class="user" @click="userEdit">
+    <div class="user" @click="$router.push('/useredit')">
       <!-- 用户头像 -->
       <UserImg :data="data" />
       <!-- 用户信息 -->
@@ -27,7 +27,7 @@
     <UserHandle list="我的关注" about="关注的用户" />
     <UserHandle list="我的跟帖" about="跟帖/回复" />
     <UserHandle list="我的收藏" about="文章/视频" />
-    <UserHandle list="设置" @click.native="userEdit" />
+    <UserHandle list="设置" @click.native="$router.push('/useredit')" />
     <UserHandle list="退出" @click.native="logout" />
   </div>
 </template>
@@ -73,9 +73,6 @@ export default {
       localStorage.removeItem("id");
       this.$toast("退出成功");
       this.$router.replace("/login");
-    },
-    userEdit() {
-      this.$router.push("/useredit");
     },
   },
 };
