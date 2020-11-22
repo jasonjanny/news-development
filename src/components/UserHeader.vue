@@ -1,7 +1,7 @@
 <template>
   <!-- 头部 -->
   <div class="editHeader">
-    <span class="iconfont iconjiantou" @click="back"></span>
+    <span class="iconfont iconjiantou" @click="$router.back()"></span>
     <p>{{ title }}</p>
   </div>
 </template>
@@ -9,11 +9,6 @@
 <script>
 export default {
   props: ["title"],
-  methods: {
-    back() {
-      this.$router.push("/usercenter");
-    },
-  },
 };
 </script>
 
