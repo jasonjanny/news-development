@@ -24,16 +24,21 @@
     <!-- 装饰边框 -->
     <div class="border"></div>
     <!-- 用户操作信息 -->
-    <UserHandle list="我的关注" about="关注的用户" />
+    <UserHandle
+      list="我的关注"
+      about="关注的用户"
+      @click.native="$router.push('/userfocus')"
+    />
     <UserHandle list="我的跟帖" about="跟帖/回复" />
     <UserHandle list="我的收藏" about="文章/视频" />
     <UserHandle list="设置" @click.native="$router.push('/useredit')" />
-    <UserHandle list="退出" @click.native="logout" />
+    <AuthBtn btnText="退出登录" @click.native="logout" />
   </div>
 </template>
 
 <script>
 import UserHandle from "../../components/UserHandle";
+import AuthBtn from "../../components/AuthBtn";
 import UserImg from "../../components/UserImg";
 import UserEdit from "../profile/UserEdit";
 export default {
@@ -45,6 +50,7 @@ export default {
   components: {
     UserHandle,
     UserImg,
+    AuthBtn,
   },
   mounted() {
     const id = localStorage.getItem("id");
@@ -125,5 +131,10 @@ export default {
 .border {
   height: 4/360 * 100vw;
   background-color: #ccc;
+}
+
+.Btn {
+  width: 200/360 * 100vw;
+  margin-top: 80/360 * 100vw;
 }
 </style>

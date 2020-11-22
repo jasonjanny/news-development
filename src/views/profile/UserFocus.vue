@@ -17,9 +17,11 @@
 
 <script>
 import UserHeader from "../../components/UserHeader";
+import UserImg from "../../components/UserImg";
 export default {
   components: {
     UserHeader,
+    UserImg,
   },
 };
 </script>
@@ -27,13 +29,13 @@ export default {
 <style lang="less" scoped>
 .focusContainer {
   min-height: 100vh;
+  padding: 0 20/360 * 100vw;
   background-color: #fff;
 
   .focusList {
     display: flex;
     align-items: center;
     height: 70/360 * 100vw;
-    padding: 0 20/360 * 100vw;
     border-bottom: 1px solid #ccc;
 
     .img {
