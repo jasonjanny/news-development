@@ -2,26 +2,47 @@
   <div class="focusContainer">
     <UserHeader title="我的关注" />
 
-    <div class="focusList">
-      <div class="img">
-        <img src="../../assets/1.jpg" alt="" />
+    <div>
+      <div class="focusList" v-for="user in focusList" :key="user.id">
+        <div class="img">
+          <img
+            v-if="user.head_img"
+            :src="$axios.defaults.baseURL + user.head_img"
+            alt=""
+          />
+          <img v-else src="@/assets/1.jpg" alt="" />
+        </div>
+        <div class="info">
+          <p class="content">{{ user.nickname }}</p>
+          <span class="time">2020-12-10</span>
+        </div>
+        <div class="cancel">取消关注</div>
       </div>
-      <div class="info">
-        <p class="content">火星新闻播报</p>
-        <span class="time">2020-12-10</span>
-      </div>
-      <div class="cancel">取消关注</div>
     </div>
   </div>
 </template>
 
 <script>
 import UserHeader from "../../components/UserHeader";
-import UserImg from "../../components/UserImg";
 export default {
+  data() {
+    return {
+      focusList: [],
+    };
+  },
   components: {
     UserHeader,
-    UserImg,
+  },
+  // 发送关注请求
+  mounted() {
+    this.$axios({
+      method: "get",
+      url: "/user_follows/",
+    }).then((res) => {
+      // console.log(res);
+      const { data } = res.data;
+      this.focusList = data;
+    });
   },
 };
 </script>
@@ -45,6 +66,7 @@ export default {
       img {
         width: 100%;
         height: 100%;
+        object-fit: cover;
         border-radius: 50%;
       }
     }
