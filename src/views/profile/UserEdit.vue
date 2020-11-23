@@ -5,6 +5,7 @@
     <!-- 头像 -->
     <div class="iconImg">
       <UserImg :data="data" />
+      <!-- 头像上传 -->
       <van-uploader :after-read="afterRead" />
     </div>
 
@@ -29,7 +30,7 @@
       v-model="isShowNickname"
       title="修改昵称"
       show-cancel-button
-      @confirm="editFile({ nickname: newNickname })"
+      @confirm="editNickname"
     >
       <van-field
         v-model="newNickname"
@@ -42,7 +43,7 @@
       v-model="isShowPassword"
       title="修改密码"
       show-cancel-button
-      @confirm="editFile({ password: newPassword })"
+      @confirm="editNickname"
     >
       <van-field
         v-model="newPassword"
@@ -79,7 +80,6 @@ export default {
         { name: "男", gender: 1 },
         { name: "女", gender: 0 },
       ],
-      img: "",
     };
   },
   components: {
@@ -119,7 +119,7 @@ export default {
         }, */
         data: newData,
       }).then((res) => {
-        console.log(res);
+        // console.log(res);
         // 重新获取一遍新数据
         if (res.data.message === "修改成功") {
           this.$toast.success(res.data.message);
@@ -127,50 +127,46 @@ export default {
         this.loadPage();
       });
     },
+
+    // 编辑昵称
+    editNickname() {
+      this.editFile({ nickname: this.newNickname });
+      this.newNickname = "";
+    },
+
+    // 编辑密码
+    editPassword() {
+      this.editFile({ password: this.newPassword });
+      this.newPassword = "";
+    },
+
     // 编辑性别
     genderSelect(sex) {
       // console.log(sex);
       const gender = sex.gender;
       this.editFile({ gender: gender });
+      this.isShowGender = false;
     },
 
     // 编辑头像
     afterRead(fileObj) {
       // console.log(fileObj);
 
+      // 使用formdata对象
       const data = new FormData();
       data.append("file", fileObj.file);
       // 头像上传至服务器
       this.$axios({
         method: "post",
         url: "/upload",
-        /* headers: {
-          // 鉴权，数据验证
-          Authorization: localStorage.getItem("token"),
-        }, */
-        data: data,
+        data,
       }).then((res) => {
-        console.log(res);
-        // console.log(res.data.data.url);
-        this.img = res.data.data.url;
-        // console.log(this.img);
-
-        // 发送数据编辑头像
-        this.$axios({
-          method: "post",
-          url: "/user_update/" + localStorage.getItem("id"),
-          /*  headers: {
-            // 鉴权，数据验证
-            Authorization: localStorage.getItem("token"),
-          }, */
-          data: {
-            head_img: this.img,
-          },
-        }).then((res) => {
-          // console.log(res);
-          // 重新获取一遍新数据
-          this.loadPage();
-        });
+        // console.log(res);
+        const { message, data } = res.data;
+        if (message === "文件上传成功") {
+          // 发送数据编辑头像
+          this.editFile({ head_img: data.url });
+        }
       });
     },
   },
