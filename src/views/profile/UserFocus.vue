@@ -2,22 +2,20 @@
   <div class="focusContainer">
     <UserHeader title="我的关注" />
 
-    <div>
-      <div class="focusList" v-for="user in focusList" :key="user.id">
-        <div class="img">
-          <img
-            v-if="user.head_img"
-            :src="$axios.defaults.baseURL + user.head_img"
-            alt=""
-          />
-          <img v-else src="@/assets/1.jpg" alt="" />
-        </div>
-        <div class="info">
-          <p class="content">{{ user.nickname }}</p>
-          <span class="time">2020-12-10</span>
-        </div>
-        <div class="cancel">取消关注</div>
+    <div class="focusList" v-for="user in focusList" :key="user.id">
+      <div class="img">
+        <img
+          v-if="user.head_img"
+          :src="$axios.defaults.baseURL + user.head_img"
+          alt=""
+        />
+        <img v-else src="@/assets/1.jpg" alt="" />
       </div>
+      <div class="info">
+        <p class="content">{{ user.nickname }}</p>
+        <span class="time">2020-12-10</span>
+      </div>
+      <div class="cancel" @click="userCancel(user.id)">取消关注</div>
     </div>
   </div>
 </template>
@@ -30,19 +28,35 @@ export default {
       focusList: [],
     };
   },
+
   components: {
     UserHeader,
   },
+
   // 发送关注请求
   mounted() {
-    this.$axios({
-      method: "get",
-      url: "/user_follows/",
-    }).then((res) => {
-      // console.log(res);
-      const { data } = res.data;
-      this.focusList = data;
-    });
+    this.loadPage();
+  },
+
+  methods: {
+    loadPage() {
+      this.$axios({
+        method: "get",
+        url: "/user_follows/",
+      }).then((res) => {
+        // console.log(res);
+        const { data } = res.data;
+        this.focusList = data;
+      });
+    },
+    userCancel(id) {
+      this.$axios({
+        url: "/user_unfollow/" + id,
+      }).then((res) => {
+        // console.log(res);
+        this.loadPage();
+      });
+    },
   },
 };
 </script>
