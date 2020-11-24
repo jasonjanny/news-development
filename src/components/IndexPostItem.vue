@@ -20,7 +20,7 @@
         </p>
       </div>
       <div class="right">
-        <img :src="fixImgUrl(postData.cover[0].url)" alt="" />
+        <img :src="postData.cover[0].url | fixImgUrl" alt="" />
       </div>
     </div>
 
@@ -33,9 +33,9 @@
         {{ postData.title }}
       </p>
       <div class="picture">
-        <img :src="fixImgUrl(postData.cover[0].url)" alt="" />
-        <img :src="fixImgUrl(postData.cover[1].url)" alt="" />
-        <img :src="fixImgUrl(postData.cover[2].url)" alt="" />
+        <img :src="postData.cover[0].url | fixImgUrl" alt="" />
+        <img :src="postData.cover[1].url | fixImgUrl" alt="" />
+        <img :src="postData.cover[2].url | fixImgUrl" alt="" />
       </div>
       <p class="from">
         <span
@@ -51,7 +51,7 @@
       <div class="articlePattern3">
         <p>{{ postData.title }}</p>
         <div class="center">
-          <img class="cover" :src="fixImgUrl(postData.cover[0].url)" alt="" />
+          <img class="cover" :src="postData.cover[0].url | fixImgUrl" alt="" />
           <span class="iconfont iconshipin"></span>
         </div>
         <p class="from">
@@ -69,15 +69,6 @@
 <script>
 export default {
   props: ["postData"],
-  methods: {
-    fixImgUrl(oldUrl) {
-      if (oldUrl.indexOf("http") > -1) {
-        return oldUrl;
-      } else {
-        return this.$axios.defaults.baseURL + oldUrl;
-      }
-    },
-  },
 };
 </script>
 
