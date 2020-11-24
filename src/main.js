@@ -7,7 +7,8 @@ Vue.config.productionTip = false
 // 导入axios库
 import axios from "axios";
 // 设置基准路径
-axios.defaults.baseURL = 'http://157.122.54.189:9083';
+// axios.defaults.baseURL = 'http://157.122.54.189:9083';
+axios.defaults.baseURL = 'http://liangwei.tech:3000';
 // 绑定到原型
 Vue.prototype.$axios = axios;
 // axios响应拦截器

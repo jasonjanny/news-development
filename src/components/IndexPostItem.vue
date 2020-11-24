@@ -51,7 +51,7 @@
       <div class="articlePattern3">
         <p>{{ postData.title }}</p>
         <div class="center">
-          <img class="cover" :src="fixImgUrl()" alt="" />
+          <img class="cover" :src="fixImgUrl(postData.cover[0].url)" alt="" />
           <span class="iconfont iconshipin"></span>
         </div>
         <p class="from">
@@ -74,7 +74,7 @@ export default {
       if (oldUrl.indexOf("http") > -1) {
         return oldUrl;
       } else {
-        return this.$axiosaxios.defaults.baseURL + oldUrl;
+        return this.$axios.defaults.baseURL + oldUrl;
       }
     },
   },
