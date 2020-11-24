@@ -69,6 +69,22 @@ export default {
       });
     });
   },
+
+  watch: {
+    activeCategoryIndex(newId) {
+      // 获取文章列表
+      this.$axios({
+        url: "/post",
+        params: {
+          category: newId,
+        },
+      }).then((res) => {
+        // console.log(res);
+        this.categoryList[newId].postList = res.data.data;
+        console.log(this.categoryList);
+      });
+    },
+  },
 };
 </script>
 
