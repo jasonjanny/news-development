@@ -90,11 +90,9 @@ export default {
     align-items: flex-start;
   }
   .right {
-    width: 121/360 * 100vw;
-    height: 75/360 * 100vw;
     img {
-      width: 100%;
-      height: 100%;
+      width: 121/360 * 100vw;
+      height: 75/360 * 100vw;
       object-fit: cover;
     }
   }

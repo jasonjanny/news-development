@@ -72,16 +72,22 @@ export default {
 
   watch: {
     activeCategoryIndex(newId) {
+      // 拿到的是序号，不是对应的分类栏目id
+      // console.log(newId);
+
+      // 获取到分类栏目id
+      const categoryId = this.categoryList[newId].id;
+      // console.log(categoryId);
       // 获取文章列表
       this.$axios({
         url: "/post",
         params: {
-          category: newId,
+          category: categoryId,
         },
       }).then((res) => {
         // console.log(res);
         this.categoryList[newId].postList = res.data.data;
-        console.log(this.categoryList);
+        // console.log(this.categoryList);
       });
     },
   },
