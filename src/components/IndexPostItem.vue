@@ -122,9 +122,9 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 340/360 * 100vw;
+    width: 100%;
     height: 170/360 * 100vw;
-    background-color: #6cf;
+    margin-top: 8/360 * 100vw;
     .cover {
       width: 100%;
       height: 100%;
