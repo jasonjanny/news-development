@@ -11,15 +11,18 @@
         :key="category.id"
       >
         <!-- 无限加载组件 -->
+        <!-- 翻页请求immediate-check 禁止页面进来时马上发送 -->
         <van-list
           @load="loadMorePost"
           :immediate-check="false"
           v-model="category.loading"
+          :finished="category.finished"
+          finished-text="别拉了"
         >
           <!-- 文章列表 -->
           <PostItem
             :postData="list"
-            v-for="list in categoryList[activeCategoryIndex].postList"
+            v-for="list in category.postList"
             :key="list.id"
           />
         </van-list>
@@ -47,24 +50,30 @@ export default {
     loadPost() {
       const category = this.categoryList[this.activeCategoryIndex];
 
-      if (category.postList.length === 0) {
-        this.$axios({
-          url: "/post",
-          params: {
-            category: category.id,
-            pageIndex: category.pageIndex,
-            pageSize: category.pageSize,
-          },
-        }).then((res) => {
-          // console.log(res);
-          // 保存文章列表
-          // category.postList = res.data.data;
-          console.log(category);
+      this.$axios({
+        url: "/post",
+        params: {
+          category: category.id,
+          pageIndex: category.pageIndex,
+          pageSize: category.pageSize,
+        },
+      }).then((res) => {
+        // 保存文章列表
+        // 这种方式获取数据时会覆盖旧数据
+        // category.postList = res.data.data;
 
-          // 获取到的新数据应该拼接在旧数据后面
-          category.postList = [...category.postList, ...res.data.data];
-        });
-      }
+        // 获取到的新数据应该拼接在旧数据后面
+        category.postList = [...category.postList, ...res.data.data];
+
+        // 数据加载完毕后关闭加载函数的读取
+        category.loading = false;
+
+        // 判断是否已经全部加载完毕
+        // 如果获取到的数据长度比要显示的数据条数长度小，说明页面到底了，不能再加载下一页了
+        if (res.data.data.length < category.pageSize) {
+          category.finished = true;
+        }
+      });
     },
 
     loadMorePost() {
@@ -92,11 +101,12 @@ export default {
           pageIndex: 1,
           // 每页显示的数据条数
           pageSize: 6,
-          // 当页面拉到底部，设置为true，就不会重复发送请求
+          // 当页面拉到底部，组件自动设置为true，就不会重复发送请求
           loading: false,
+          // 是否已经全部加载完毕
+          finished: false,
         };
       });
-      // console.log(this.categoryList);
 
       // 第一次获取文章列表
       this.loadPost();
@@ -105,8 +115,11 @@ export default {
 
   watch: {
     activeCategoryIndex() {
-      // 获取文章列表
-      this.loadPost();
+      const category = this.categoryList[this.activeCategoryIndex];
+      if (category.postList.length === 0) {
+        // 获取文章列表
+        this.loadPost();
+      }
     },
   },
 };
