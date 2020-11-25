@@ -28,6 +28,7 @@ export default {
   p {
     flex: 1;
     color: #333;
+    text-align: center;
     margin-right: 10/360 * 100vw;
     font-size: 14/360 * 100vw;
   }
