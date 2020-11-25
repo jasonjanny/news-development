@@ -36,6 +36,22 @@ export default {
     PostItem,
   },
 
+  methods: {
+    loadPost(category) {
+      this.$axios({
+        url: "/post",
+        params: {
+          category: category.id,
+        },
+      }).then((res) => {
+        // console.log(res);
+        // 保存文章列表
+        category.postList = res.data.data;
+        console.log(category);
+      });
+    },
+  },
+
   created() {
     // 获取栏目列表
     this.$axios({
@@ -56,41 +72,18 @@ export default {
       const category = this.categoryList[this.activeCategoryIndex];
 
       // 第一次获取文章列表
-      this.$axios({
-        url: "/post",
-        params: {
-          category: category.id,
-        },
-      }).then((res) => {
-        // console.log(res);
-        // 保存文章列表
-        this.categoryList[this.activeCategoryIndex].postList = res.data.data;
-        // console.log(this.categoryList);
-      });
+      this.loadPost(category);
     });
   },
 
   watch: {
-    activeCategoryIndex(newId) {
-      // 拿到的是序号，不是对应的分类栏目id
-      // console.log(newId);
+    activeCategoryIndex() {
+      const category = this.categoryList[this.activeCategoryIndex];
+      // console.log(category);
 
-      // 获取到分类栏目id
-      const categoryId = this.categoryList[newId].id;
-      // console.log(categoryId);
-
-      if (this.categoryList[newId].postList.length === 0) {
+      if (category.postList.length === 0) {
         // 获取文章列表
-        this.$axios({
-          url: "/post",
-          params: {
-            category: categoryId,
-          },
-        }).then((res) => {
-          //  console.log(res);
-          this.categoryList[newId].postList = res.data.data;
-          // console.log(this.categoryList);
-        });
+        this.loadPost(category);
       }
     },
   },
