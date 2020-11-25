@@ -10,12 +10,19 @@
         v-for="category in categoryList"
         :key="category.id"
       >
-        <!-- 文章列表 -->
-        <PostItem
-          :postData="list"
-          v-for="list in categoryList[activeCategoryIndex].postList"
-          :key="list.id"
-        />
+        <!-- 无限加载组件 -->
+        <van-list
+          @load="loadMorePost"
+          :immediate-check="false"
+          v-model="category.loading"
+        >
+          <!-- 文章列表 -->
+          <PostItem
+            :postData="list"
+            v-for="list in categoryList[activeCategoryIndex].postList"
+            :key="list.id"
+          />
+        </van-list>
       </van-tab>
     </van-tabs>
   </div>
@@ -56,6 +63,14 @@ export default {
         });
       }
     },
+
+    loadMorePost() {
+      const category = this.categoryList[this.activeCategoryIndex];
+      // 将当前分类页码+1
+      category.pageIndex += 1;
+      // 获取数据
+      this.loadPost();
+    },
   },
 
   created() {
@@ -73,7 +88,9 @@ export default {
           // 当前页数
           pageIndex: 1,
           // 每页显示的数据条数
-          pageSize: 3,
+          pageSize: 6,
+          // 当页面拉到底部，设置为true，就不会重复发送请求
+          loading: false,
         };
       });
       // console.log(this.categoryList);
