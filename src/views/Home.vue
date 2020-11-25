@@ -58,8 +58,11 @@ export default {
         }).then((res) => {
           // console.log(res);
           // 保存文章列表
-          category.postList = res.data.data;
+          // category.postList = res.data.data;
           console.log(category);
+
+          // 获取到的新数据应该拼接在旧数据后面
+          category.postList = [...category.postList, ...res.data.data];
         });
       }
     },
