@@ -8,6 +8,7 @@ import Register from '../views/Register.vue'
 import UserCenter from '../views/profile/UserCenter.vue'
 import UserEdit from '../views/profile/UserEdit.vue'
 import UserFocus from '../views/profile/UserFocus.vue'
+import UserCollect from '../views/profile/UserCollect.vue'
 
 Vue.use(VueRouter)
 
@@ -42,6 +43,13 @@ const routes = [
   {
     path: '/userfocus',
     component: UserFocus,
+    meta: {
+      needAuth: true
+    }
+  },
+  {
+    path: '/usercollect',
+    component: UserCollect,
     meta: {
       needAuth: true
     }
