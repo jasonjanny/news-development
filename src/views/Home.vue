@@ -37,18 +37,22 @@ export default {
   },
 
   methods: {
-    loadPost(category) {
-      this.$axios({
-        url: "/post",
-        params: {
-          category: category.id,
-        },
-      }).then((res) => {
-        // console.log(res);
-        // 保存文章列表
-        category.postList = res.data.data;
-        console.log(category);
-      });
+    loadPost() {
+      const category = this.categoryList[this.activeCategoryIndex];
+
+      if (category.postList.length === 0) {
+        this.$axios({
+          url: "/post",
+          params: {
+            category: category.id,
+          },
+        }).then((res) => {
+          // console.log(res);
+          // 保存文章列表
+          category.postList = res.data.data;
+          console.log(category);
+        });
+      }
     },
   },
 
@@ -68,23 +72,15 @@ export default {
       });
       // console.log(this.categoryList);
 
-      // 获取当前默认处在激活状态的文章分类
-      const category = this.categoryList[this.activeCategoryIndex];
-
       // 第一次获取文章列表
-      this.loadPost(category);
+      this.loadPost();
     });
   },
 
   watch: {
     activeCategoryIndex() {
-      const category = this.categoryList[this.activeCategoryIndex];
-      // console.log(category);
-
-      if (category.postList.length === 0) {
-        // 获取文章列表
-        this.loadPost(category);
-      }
+      // 获取文章列表
+      this.loadPost();
     },
   },
 };
