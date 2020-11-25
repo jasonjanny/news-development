@@ -45,6 +45,8 @@ export default {
           url: "/post",
           params: {
             category: category.id,
+            pageIndex: category.pageIndex,
+            pageSize: category.pageSize,
           },
         }).then((res) => {
           // console.log(res);
@@ -68,6 +70,10 @@ export default {
           ...category,
           // 在每个栏目里都添加一个数组
           postList: [],
+          // 当前页数
+          pageIndex: 1,
+          // 每页显示的数据条数
+          pageSize: 3,
         };
       });
       // console.log(this.categoryList);
