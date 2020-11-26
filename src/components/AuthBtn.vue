@@ -15,11 +15,13 @@ export default {
 <style lang="less" scoped>
 // 登录按钮
 .Btn {
-  width: 100%;
+  width: 60%;
   height: 48/360 * 100vw;
   margin-top: 48/360 * 100vw;
+  margin-left: 65/360 * 100vw;
   border: none;
   color: #f8e4dd;
+  text-align: center;
   font-size: 24/360 * 100vw;
   background-color: #cc3300;
   border-radius: 24/360 * 100vw;
