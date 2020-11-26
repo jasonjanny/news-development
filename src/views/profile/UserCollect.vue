@@ -26,10 +26,10 @@ export default {
     this.$axios({
       url: "/user_star",
     }).then((res) => {
-      //   console.log(res);
+      // console.log(res);
       if (res.statusText === "OK") {
         this.collectList = res.data.data;
-        console.log(this.collectList);
+        // console.log(this.collectList);
       }
     });
   },
@@ -39,7 +39,7 @@ export default {
 <style lang="less" scoped>
 .collectContainer {
   min-height: 100vh;
-  padding: 0 10/360 * 100vw;
+  padding: 0 20/360 * 100vw;
   background-color: #fff;
   .cover {
     width: 100/360 * 100vw;
