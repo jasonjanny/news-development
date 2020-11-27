@@ -9,6 +9,7 @@ import UserCenter from '../views/profile/UserCenter.vue'
 import UserEdit from '../views/profile/UserEdit.vue'
 import UserFocus from '../views/profile/UserFocus.vue'
 import UserCollect from '../views/profile/UserCollect.vue'
+import PostDetail from '../views/PostDetail.vue'
 
 Vue.use(VueRouter)
 
@@ -53,6 +54,10 @@ const routes = [
     meta: {
       needAuth: true
     }
+  },
+  {
+    path: '/postdetail',
+    component: PostDetail,
   }
 ]
 
