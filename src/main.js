@@ -65,6 +65,11 @@ import 'vant/lib/index.css'
 // 3. 注册 vant ui 组件库的标签
 Vue.use(Vant)
 
+// 引入video.js
+import Video from 'video.js'
+import 'video.js/dist/video-js.css'
+Vue.prototype.$video = Video
+
 new Vue({
   router,
   render: function (h) { return h(App) }
