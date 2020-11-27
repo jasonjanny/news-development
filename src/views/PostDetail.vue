@@ -1,11 +1,23 @@
 <template>
-  <h1>文章详情</h1>
+  <div>
+    {{ detailList.title }}
+  </div>
 </template>
 
 <script>
 export default {
-  mounted() {
-    console.log(this.$route.params);
+  data() {
+    return {
+      detailList: {},
+    };
+  },
+  created() {
+    this.$axios({
+      url: "/post/" + this.$route.params.id,
+    }).then((res) => {
+      //   console.log(res);
+      this.detailList = res.data.data;
+    });
   },
 };
 </script>
