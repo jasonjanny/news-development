@@ -5,7 +5,14 @@
       <div class="header">
         <span class="iconfont iconjiantou2"></span>
         <span class="iconfont iconnew"></span>
-        <div class="btnFocus">已关注</div>
+        <div
+          :class="{
+            focus: detailList.has_follow,
+            btnFocus: !detailList.has_follow,
+          }"
+        >
+          {{ detailList.has_follow ? "已关注" : "关注" }}
+        </div>
       </div>
       <div class="mainContainer">
         <div class="title">{{ detailList.title }}</div>
@@ -18,15 +25,30 @@
     <div v-if="detailList.type === 2">
       <div>
         <video
+          v-if="detailList.cover[0].url.indexOf('http') > -1"
           controls
           :poster="detailList.cover[0].url"
+          src="https://video.pearvideo.com/mp4/third/20200313/cont-1660972-10399095-120705-hd.mp4"
+        ></video>
+
+        <video
+          v-else
+          controls
+          :poster="$axios.defaults.baseURL + detailList.cover[0].url"
           src="https://video.pearvideo.com/mp4/third/20200313/cont-1660972-10399095-120705-hd.mp4"
         ></video>
       </div>
       <div class="videoContainer">
         <img :src="$axios.defaults.baseURL + detailList.user.head_img" alt="" />
         <div class="info">{{ detailList.user.nickname }}</div>
-        <div class="btnFocus">关注</div>
+        <div
+          :class="{
+            focus: detailList.has_follow,
+            btnFocus: !detailList.has_follow,
+          }"
+        >
+          {{ detailList.has_follow ? "已关注" : "关注" }}
+        </div>
       </div>
       <div class="videoContent">{{ detailList.title }}</div>
     </div>
@@ -52,6 +74,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
+// 普通文章
 .header {
   display: flex;
   align-items: center;
@@ -89,6 +112,8 @@ export default {
     max-width: 100%;
   }
 }
+
+// 视频文章
 video {
   max-width: 100%;
 }
@@ -118,5 +143,16 @@ video {
     border: 1px solid #888;
     border-radius: 15/360 * 100vw;
   }
+}
+
+.focus {
+  width: 70/360 * 100vw;
+  height: 30/360 * 100vw;
+  line-height: 30/360 * 100vw;
+  text-align: center;
+  font-size: 16/360 * 100vw;
+  color: #fff;
+  background-color: #ff0000;
+  border-radius: 15/360 * 100vw;
 }
 </style>
