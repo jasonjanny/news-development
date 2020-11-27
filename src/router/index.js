@@ -56,7 +56,7 @@ const routes = [
     }
   },
   {
-    path: '/postdetail',
+    path: '/postdetail/:id',
     component: PostDetail,
   }
 ]
