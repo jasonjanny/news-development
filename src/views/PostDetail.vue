@@ -20,6 +20,22 @@
         <div class="info">{{ detailList.user.nickname }} 2020-11-20</div>
       </div>
       <div class="content" v-html="detailList.content"></div>
+      <div class="footer">
+        <div
+          class="like btnFocus"
+          @click="like"
+          :class="{
+            red: detailList.has_like,
+          }"
+        >
+          <span class="iconfont icondianzan"></span>
+          {{ detailList.like_length }}
+        </div>
+        <div class="weixin btnFocus">
+          <span class="iconfont iconweixin"></span>
+          微信
+        </div>
+      </div>
     </div>
 
     <!-- 视频文章 -->
@@ -53,6 +69,22 @@
         </div>
       </div>
       <div class="videoContent">{{ detailList.title }}</div>
+      <div class="footer">
+        <div
+          class="like btnFocus"
+          @click="like"
+          :class="{
+            red: detailList.has_like,
+          }"
+        >
+          <span class="iconfont icondianzan"></span>
+          {{ detailList.like_length }}
+        </div>
+        <div class="weixin btnFocus">
+          <span class="iconfont iconweixin"></span>
+          微信
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -68,7 +100,7 @@ export default {
     this.$axios({
       url: "/post/" + this.$route.params.id,
     }).then((res) => {
-      console.log(res);
+      // console.log(res);
       this.detailList = res.data.data;
     });
   },
@@ -80,7 +112,7 @@ export default {
         this.$axios({
           url: "/user_follows/" + this.detailList.user.id,
         }).then((res) => {
-          console.log(res);
+          // console.log(res);
           if (res.data.message === "关注成功") {
             this.detailList.has_follow = true;
           }
@@ -99,6 +131,24 @@ export default {
         });
       }
     },
+
+    like() {
+      this.$axios({
+        url: "/post_like/" + this.$route.params.id,
+      }).then((res) => {
+        // console.log(res.data);
+        if (res.data.message === "点赞成功") {
+          this.detailList.has_like = true;
+          this.detailList.like_length += 1;
+          this.$toast.success("点赞成功");
+        }
+        if (res.data.message === "取消成功") {
+          this.detailList.has_like = false;
+          this.detailList.like_length -= 1;
+          this.$toast("取消点赞成功");
+        }
+      });
+    },
   },
 };
 </script>
@@ -113,15 +163,6 @@ export default {
     flex: 1;
     font-size: 54/360 * 100vw;
     padding-left: 8/360 * 100vw;
-  }
-  .btnFocus {
-    width: 70/360 * 100vw;
-    height: 30/360 * 100vw;
-    line-height: 30/360 * 100vw;
-    text-align: center;
-    font-size: 16/360 * 100vw;
-    border: 1px solid #888;
-    border-radius: 15/360 * 100vw;
   }
 }
 .mainContainer {
@@ -175,6 +216,16 @@ video {
   }
 }
 
+.btnFocus {
+  width: 70/360 * 100vw;
+  height: 30/360 * 100vw;
+  line-height: 30/360 * 100vw;
+  text-align: center;
+  font-size: 16/360 * 100vw;
+  border: 1px solid #888;
+  border-radius: 15/360 * 100vw;
+}
+
 .focus {
   width: 70/360 * 100vw;
   height: 30/360 * 100vw;
@@ -184,5 +235,26 @@ video {
   color: #fff;
   background-color: #ff0000;
   border-radius: 15/360 * 100vw;
+}
+
+.red {
+  color: #ff0000;
+}
+
+// 底部
+.footer {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 40/360 * 100vw;
+  .icondianzan {
+    padding-right: 4/360 * 100vw;
+  }
+  .weixin {
+    font-size: 14/360 * 100vw;
+    .iconweixin {
+      padding-right: 4/360 * 100vw;
+      color: #00c800;
+    }
+  }
 }
 </style>
