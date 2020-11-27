@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @click="$router.push('/postdetail/?id=' + postData.id)">
     <!-- 第1种文章模式 -->
     <div
       class="articlePattern1"
