@@ -42,6 +42,8 @@
     <div v-if="detailList.type === 2">
       <div>
         <video
+          ref="playVideo"
+          @click="pause"
           v-if="detailList.cover[0].url.indexOf('http') > -1"
           controls
           :poster="detailList.cover[0].url"
@@ -49,11 +51,19 @@
         ></video>
 
         <video
+          ref="playVideo"
+          @click="pause"
           v-else
-          controls
           :poster="$axios.defaults.baseURL + detailList.cover[0].url"
           src="https://video.pearvideo.com/mp4/third/20200313/cont-1660972-10399095-120705-hd.mp4"
         ></video>
+        <span
+          class="iconfont iconshipin"
+          :class="{
+            videoButtonStyle: !videoButton,
+          }"
+          @click="play"
+        ></span>
       </div>
       <div class="videoContainer">
         <img :src="$axios.defaults.baseURL + detailList.user.head_img" alt="" />
@@ -94,6 +104,7 @@ export default {
   data() {
     return {
       detailList: {},
+      videoButton: true,
     };
   },
   created() {
@@ -149,6 +160,16 @@ export default {
         }
       });
     },
+
+    play() {
+      this.$refs.playVideo.play();
+      this.videoButton = false;
+    },
+
+    pause() {
+      this.$refs.playVideo.pause();
+      this.videoButton = true;
+    },
   },
 };
 </script>
@@ -187,6 +208,15 @@ export default {
 // 视频文章
 video {
   max-width: 100%;
+}
+.iconshipin {
+  position: fixed;
+  top: 70/360 * 100vw;
+  left: 140/360 * 100vw;
+  font-size: 60/360 * 100vw;
+  color: #fff;
+  background-color: #ffffff62;
+  border-radius: 50%;
 }
 .videoContainer {
   display: flex;
@@ -241,6 +271,9 @@ video {
   color: #ff0000;
 }
 
+.videoButtonStyle {
+  display: none;
+}
 // 底部
 .footer {
   display: flex;
