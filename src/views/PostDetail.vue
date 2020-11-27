@@ -6,6 +6,7 @@
         <span class="iconfont iconjiantou2"></span>
         <span class="iconfont iconnew"></span>
         <div
+          @click="focus"
           :class="{
             focus: detailList.has_follow,
             btnFocus: !detailList.has_follow,
@@ -42,6 +43,7 @@
         <img :src="$axios.defaults.baseURL + detailList.user.head_img" alt="" />
         <div class="info">{{ detailList.user.nickname }}</div>
         <div
+          @click="focus"
           :class="{
             focus: detailList.has_follow,
             btnFocus: !detailList.has_follow,
@@ -69,6 +71,34 @@ export default {
       console.log(res);
       this.detailList = res.data.data;
     });
+  },
+
+  methods: {
+    focus() {
+      // 关注用户
+      if (!this.detailList.has_follow) {
+        this.$axios({
+          url: "/user_follows/" + this.detailList.user.id,
+        }).then((res) => {
+          console.log(res);
+          if (res.data.message === "关注成功") {
+            this.detailList.has_follow = true;
+          }
+        });
+      }
+
+      // 取消关注
+      if (this.detailList.has_follow) {
+        this.$axios({
+          url: "/user_unfollow/" + this.detailList.user.id,
+        }).then((res) => {
+          console.log(res);
+          if (res.data.message === "取消关注成功") {
+            this.detailList.has_follow = false;
+          }
+        });
+      }
+    },
   },
 };
 </script>
