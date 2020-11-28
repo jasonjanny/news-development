@@ -1,6 +1,6 @@
 <template>
-  <div class="commentContainer">
-    <UserHeader title="精彩跟帖" />
+  <div class="programContainer">
+    <UserHeader title="栏目管理" />
   </div>
 </template>
 
@@ -14,7 +14,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.commentContainer {
+.programContainer {
   padding: 0 20/360 * 100vw;
 }
 </style>

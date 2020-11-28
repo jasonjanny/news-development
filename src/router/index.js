@@ -12,6 +12,7 @@ import UserCollect from '../views/profile/UserCollect.vue'
 
 import PostDetail from '../views/PostDetail.vue'
 import Comment from '../views/Comment.vue'
+import ProgramManagement from '../views/ProgramManagement.vue'
 
 Vue.use(VueRouter)
 
@@ -64,6 +65,10 @@ const routes = [
   {
     path: '/comment',
     component: Comment,
+  },
+  {
+    path: '/program',
+    component: ProgramManagement,
   }
 ]
 
