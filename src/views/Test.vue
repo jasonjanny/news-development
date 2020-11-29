@@ -5,43 +5,25 @@
 </template>
 
 <script>
-import Main from "../components/Main";
+import Main from "../comment/Main";
 export default {
   data() {
     return {
-      mainList: [
-        {
-          content: "123",
-        },
-        {
-          content: "456",
-        },
-        {
-          content: "789",
-          parent: {
-            content: "qwer",
-          },
-        },
-        {
-          content: "讲什么故事呢?",
-          parent: {
-            content: "庙里有个和尚在讲故事",
-            parent: {
-              content: "山上有座庙",
-              // 被你回复的内容
-              // 都会放在当前评论对象
-              // 的 parent 属性里面
-              parent: {
-                content: "从前有座山",
-              },
-            },
-          },
-        },
-      ],
+      mainList: [],
     };
   },
+
   components: {
     Main,
+  },
+
+  created() {
+    this.$axios({
+      url: "/post_comment/" + 1,
+    }).then((res) => {
+      console.log(res.data);
+      this.mainList = res.data;
+    });
   },
 };
 </script>
