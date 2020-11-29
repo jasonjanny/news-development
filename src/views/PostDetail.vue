@@ -17,25 +17,9 @@
       </div>
       <div class="mainContainer">
         <div class="title">{{ detailList.title }}</div>
-        <div class="info">{{ detailList.user.nickname }} 2020-11-20</div>
+        <div class="info">{{ detailList.user.nickname }} {{ date }}</div>
       </div>
       <div class="content" v-html="detailList.content"></div>
-      <div class="footer">
-        <div
-          class="like btnFocus"
-          @click="like"
-          :class="{
-            red: detailList.has_like,
-          }"
-        >
-          <span class="iconfont icondianzan"></span>
-          {{ detailList.like_length }}
-        </div>
-        <div class="weixin btnFocus">
-          <span class="iconfont iconweixin"></span>
-          微信
-        </div>
-      </div>
     </div>
 
     <!-- 视频文章 -->
@@ -67,7 +51,7 @@
       </div>
       <div class="videoContainer">
         <img :src="$axios.defaults.baseURL + detailList.user.head_img" alt="" />
-        <div class="info">{{ detailList.user.nickname }}</div>
+        <div class="info">{{ detailList.user.nickname }} {{ date }}</div>
         <div
           @click="focus"
           :class="{
@@ -79,21 +63,23 @@
         </div>
       </div>
       <div class="videoContent">{{ detailList.title }}</div>
-      <div class="footer">
-        <div
-          class="like btnFocus"
-          @click="like"
-          :class="{
-            red: detailList.has_like,
-          }"
-        >
-          <span class="iconfont icondianzan"></span>
-          {{ detailList.like_length }}
-        </div>
-        <div class="weixin btnFocus">
-          <span class="iconfont iconweixin"></span>
-          微信
-        </div>
+    </div>
+
+    <!-- 公共按钮 -->
+    <div class="footer">
+      <div
+        class="like btnFocus"
+        @click="like"
+        :class="{
+          red: detailList.has_like,
+        }"
+      >
+        <span class="iconfont icondianzan"></span>
+        {{ detailList.like_length }}
+      </div>
+      <div class="weixin btnFocus">
+        <span class="iconfont iconweixin"></span>
+        微信
       </div>
     </div>
   </div>
@@ -103,6 +89,12 @@
 export default {
   data() {
     return {
+      date:
+        new Date().getFullYear() +
+        "-" +
+        (new Date().getMonth() + 1) +
+        "-" +
+        new Date().getDate(),
       detailList: {},
       videoButton: true,
     };
