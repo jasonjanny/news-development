@@ -95,7 +95,7 @@
             />
             <div class="info">
               <p class="nickname">{{ comment.user.nickname }}</p>
-              <p class="date">2020-11-30</p>
+              <p class="date">{{ date }}</p>
             </div>
             <div class="reply">回复</div>
           </div>
@@ -154,7 +154,7 @@ export default {
         url: "/post_comment/" + this.$route.params.id,
       }).then((res) => {
         this.commentList = res.data.data;
-        // console.log(this.commentList);
+        console.log(this.commentList);
 
         if (this.commentList.length === 0) {
           this.commentCount = false;
@@ -355,7 +355,6 @@ video {
     img {
       width: 40/360 * 100vw;
       height: 40/360 * 100vw;
-      background-color: #6cf;
       border-radius: 50%;
     }
     .info {
