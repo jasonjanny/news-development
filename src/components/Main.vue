@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import Parent from "../views/Parent";
+import Parent from "../components/Parent";
 export default {
   props: ["mainlist"],
   components: {

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Main from "../views/Main";
+import Main from "../components/Main";
 export default {
   data() {
     return {
