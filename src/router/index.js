@@ -17,6 +17,11 @@ import ProgramManagement from '../views/ProgramManagement.vue'
 import Test from '../views/Test.vue'
 import Digui from '../views/Digui.vue'
 
+import Parent from '../views/Parent.vue'
+import Main from '../views/Main.vue'
+
+
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -80,6 +85,14 @@ const routes = [
   {
     path: '/digui',
     component: Digui,
+  },
+  {
+    path: '/parent',
+    component: Parent,
+  },
+  {
+    path: '/main',
+    component: Main,
   }
 ]
 
