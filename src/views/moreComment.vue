@@ -1,6 +1,6 @@
 <template>
   <div class="commentContainer">
-    <div class="title">更多跟帖</div>
+    <UserHeader title="精彩跟帖" />
     <div v-for="comment in commentList" :key="comment.id">
       <div class="commentContent">
         <img :src="$axios.defaults.baseURL + comment.user.head_img" alt="" />
@@ -21,6 +21,7 @@
 
 <script>
 import Main from "../comment/Main";
+import UserHeader from "../components/UserHeader";
 export default {
   data() {
     return {
@@ -32,6 +33,10 @@ export default {
         new Date().getDate(),
       commentList: [],
     };
+  },
+  components: {
+    Main,
+    UserHeader,
   },
   created() {
     this.$axios({
@@ -47,7 +52,7 @@ export default {
 <style lang="less" scoped>
 // 跟帖
 .commentContainer {
-  margin: 30/360 * 100vw 20/360 * 100vw 0;
+  margin: 10/360 * 100vw 20/360 * 100vw 0;
   .title {
     margin-top: 20/360 * 100vw;
     margin-bottom: 30/360 * 100vw;
@@ -57,7 +62,7 @@ export default {
   .commentContent {
     display: flex;
     align-items: center;
-    margin-top: 15/360 * 100vw;
+    margin-top: 20/360 * 100vw;
     padding: 0 15/360 * 100vw;
     img {
       width: 40/360 * 100vw;
@@ -83,7 +88,7 @@ export default {
   }
   .comment {
     word-break: break-all; // 设置换行
-    padding: 20/360 * 100vw 15/360 * 100vw;
+    padding: 0 15/360 * 100vw 15/360 * 100vw;
     border-bottom: 1px solid #ccc;
     font-size: 16/360 * 100vw;
   }
