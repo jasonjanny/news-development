@@ -112,6 +112,7 @@
           hiddenBtn: !commentCount,
         }"
         v-if="commentCount"
+        @click="$router.push('/morecomment/' + $route.params.id)"
       >
         更多跟帖
       </div>
@@ -152,9 +153,7 @@ export default {
       this.$axios({
         url: "/post_comment/" + this.$route.params.id,
       }).then((res) => {
-        console.log(res.data.data);
         this.commentList = res.data.data;
-
         // console.log(this.commentList);
 
         if (this.commentList.length === 0) {

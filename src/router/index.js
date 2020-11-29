@@ -11,6 +11,7 @@ import UserFocus from '../views/profile/UserFocus.vue'
 import UserCollect from '../views/profile/UserCollect.vue'
 
 import PostDetail from '../views/PostDetail.vue'
+import MoreComment from '../views/moreComment.vue'
 import Comment from '../views/Comment.vue'
 import ProgramManagement from '../views/ProgramManagement.vue'
 
@@ -67,6 +68,10 @@ const routes = [
   {
     path: '/postdetail/:id',
     component: PostDetail,
+  },
+  {
+    path: '/morecomment/:id',
+    component: MoreComment,
   },
   {
     path: '/comment',
