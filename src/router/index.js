@@ -14,6 +14,9 @@ import PostDetail from '../views/PostDetail.vue'
 import Comment from '../views/Comment.vue'
 import ProgramManagement from '../views/ProgramManagement.vue'
 
+import Test from '../views/Test.vue'
+import Digui from '../views/Digui.vue'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -69,6 +72,14 @@ const routes = [
   {
     path: '/program',
     component: ProgramManagement,
+  },
+  {
+    path: '/test',
+    component: Test,
+  },
+  {
+    path: '/digui',
+    component: Digui,
   }
 ]
 
