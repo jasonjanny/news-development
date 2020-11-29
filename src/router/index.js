@@ -17,8 +17,8 @@ import ProgramManagement from '../views/ProgramManagement.vue'
 import Test from '../views/Test.vue'
 import Digui from '../views/Digui.vue'
 
-import Parent from '../components/Main.vue'
-import Main from '../components/Parent.vue'
+import Parent from '../comment/Parent.vue'
+import Main from '../comment/Main.vue'
 
 Vue.use(VueRouter)
 

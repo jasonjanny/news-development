@@ -82,10 +82,29 @@
         微信
       </div>
     </div>
+
+    <!-- 跟帖 -->
+    <div class="commentContainer">
+      <div class="title">精彩跟帖</div>
+      <div v-for="comment in commentList" :key="comment.id">
+        <div class="commentContent">
+          <img :src="$axios.defaults.baseURL + comment.user.head_img" alt="" />
+          <div class="info">
+            <p class="nickname">{{ comment.user.nickname }}</p>
+            <p class="date">2020-11-30</p>
+          </div>
+          <div class="reply">回复</div>
+        </div>
+
+        <Main :mainlist="comment" />
+        <div class="comment">{{ comment.content }}</div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import Main from "../comment/Main";
 export default {
   data() {
     return {
@@ -97,7 +116,12 @@ export default {
         new Date().getDate(),
       detailList: {},
       videoButton: true,
+      commentList: [],
     };
+  },
+
+  components: {
+    Main,
   },
   created() {
     this.$axios({
@@ -105,6 +129,15 @@ export default {
     }).then((res) => {
       // console.log(res);
       this.detailList = res.data.data;
+
+      // 获取评论数据
+      this.$axios({
+        url: "/post_comment/" + this.$route.params.id,
+      }).then((res) => {
+        console.log(res.data.data);
+        this.commentList = res.data.data;
+        console.log(this.commentList);
+      });
     });
   },
 
@@ -280,6 +313,50 @@ video {
       padding-right: 4/360 * 100vw;
       color: #00c800;
     }
+  }
+}
+
+// 跟帖
+.commentContainer {
+  margin-top: 30/360 * 100vw;
+  border-top: 4px solid #ccc;
+  .title {
+    margin-top: 20/360 * 100vw;
+    font-size: 18/360 * 100vw;
+    text-align: center;
+  }
+  .commentContent {
+    display: flex;
+    align-items: center;
+    margin-top: 15/360 * 100vw;
+    padding: 0 15/360 * 100vw;
+    img {
+      width: 40/360 * 100vw;
+      height: 40/360 * 100vw;
+      background-color: #6cf;
+      border-radius: 50%;
+    }
+    .info {
+      flex-grow: 1;
+      padding-left: 8/360 * 100vw;
+      .nickname {
+        font-size: 16/360 * 100vw;
+      }
+      .date {
+        padding-top: 4/360 * 100vw;
+        font-size: 14/360 * 100vw;
+        color: #888;
+      }
+    }
+    .reply {
+      font-size: 15/360 * 100vw;
+      color: #888;
+    }
+  }
+  .comment {
+    padding: 0 15/360 * 100vw 20/360 * 100vw;
+    border-bottom: 1px solid #ccc;
+    font-size: 16/360 * 100vw;
   }
 }
 </style>
