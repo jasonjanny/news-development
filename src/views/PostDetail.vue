@@ -86,19 +86,36 @@
     <!-- 跟帖 -->
     <div class="commentContainer">
       <div class="title">精彩跟帖</div>
-      <div v-for="comment in commentList" :key="comment.id">
-        <div class="commentContent">
-          <img :src="$axios.defaults.baseURL + comment.user.head_img" alt="" />
-          <div class="info">
-            <p class="nickname">{{ comment.user.nickname }}</p>
-            <p class="date">2020-11-30</p>
+      <div v-for="(comment, index) in commentList" :key="comment.id">
+        <div v-if="index < 3">
+          <div class="commentContent">
+            <img
+              :src="$axios.defaults.baseURL + comment.user.head_img"
+              alt=""
+            />
+            <div class="info">
+              <p class="nickname">{{ comment.user.nickname }}</p>
+              <p class="date">2020-11-30</p>
+            </div>
+            <div class="reply">回复</div>
           </div>
-          <div class="reply">回复</div>
-        </div>
 
-        <Main :mainlist="comment" />
-        <div class="comment">{{ comment.content }}</div>
+          <Main :mainlist="comment" />
+          <div class="comment">{{ comment.content }}</div>
+        </div>
       </div>
+
+      <!-- 更多跟帖 -->
+      <div
+        class="moreCommentBtn"
+        :class="{
+          hiddenBtn: !commentCount,
+        }"
+        v-if="commentCount"
+      >
+        更多跟帖
+      </div>
+      <div class="noComment" v-else>暂无跟帖，抢占沙发</div>
     </div>
   </div>
 </template>
@@ -117,6 +134,7 @@ export default {
       detailList: {},
       videoButton: true,
       commentList: [],
+      commentCount: true,
     };
   },
 
@@ -136,7 +154,12 @@ export default {
       }).then((res) => {
         console.log(res.data.data);
         this.commentList = res.data.data;
-        console.log(this.commentList);
+
+        // console.log(this.commentList);
+
+        if (this.commentList.length === 0) {
+          this.commentCount = false;
+        }
       });
     });
   },
@@ -357,6 +380,29 @@ video {
     padding: 0 15/360 * 100vw 20/360 * 100vw;
     border-bottom: 1px solid #ccc;
     font-size: 16/360 * 100vw;
+  }
+
+  .moreCommentBtn {
+    width: 130/360 * 100vw;
+    height: 30/360 * 100vw;
+    line-height: 30/360 * 100vw;
+    margin: 40/360 * 100vw auto;
+    text-align: center;
+    font-size: 14/360 * 100vw;
+    color: #555;
+    border: 1px solid #888;
+    border-radius: 15/360 * 100vw;
+  }
+
+  .hiddenBtn {
+    display: none;
+  }
+
+  .noComment {
+    margin-top: 40/360 * 100vw;
+    text-align: center;
+    color: #888;
+    font-size: 14/360 * 100vw;
   }
 }
 </style>
