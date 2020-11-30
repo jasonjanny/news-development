@@ -23,8 +23,10 @@ export default {
 
 <style lang="less" scoped>
 .parentContainer {
+  padding: 4/360 * 100vw;
+  border: 1px solid #ccc;
   .content {
-    border-bottom: 1px solid #ccc;
+    padding: 10/360 * 100vw;
     margin-top: 10/360 * 100vw;
     .userInfo {
       display: flex;
@@ -48,7 +50,6 @@ export default {
     }
     .userContent {
       font-size: 14/360 * 100vw;
-      padding-bottom: 10/360 * 100vw;
     }
   }
 }
