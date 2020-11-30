@@ -2,17 +2,7 @@
   <div class="commentContainer">
     <UserHeader title="精彩跟帖" />
     <div v-for="comment in commentList" :key="comment.id">
-      <div class="commentContent">
-        <img :src="$axios.defaults.baseURL + comment.user.head_img" alt="" />
-        <div class="info">
-          <p class="nickname">{{ comment.user.nickname }}</p>
-          <p class="date">{{ date }}</p>
-        </div>
-        <div class="reply">回复</div>
-      </div>
-
       <Main :mainlist="comment" />
-      <div class="comment">{{ comment.content }}</div>
     </div>
 
     <div class="boottomLine">我也是有底线的</div>
