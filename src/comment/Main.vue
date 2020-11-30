@@ -2,31 +2,20 @@
   <div>
     <div class="mainContainer" v-if="mainlist.parent">
       <Parent :parentlist="mainlist.parent" />
-      <div class="commentContainer">
-        <div class="commentContent">
-          <img :src="$axios.defaults.baseURL + mainlist.user.head_img" alt="" />
-          <div class="info">
-            <p class="nickname">{{ mainlist.user.nickname }}</p>
-            <p class="date">{{ date }}</p>
-          </div>
-          <div class="reply">回复</div>
-        </div>
-        <div class="comment">{{ mainlist.content }}</div>
-      </div>
     </div>
 
-    <div class="main" v-else>
-      <div class="commentContainer">
-        <div class="commentContent">
-          <img :src="$axios.defaults.baseURL + mainlist.user.head_img" alt="" />
-          <div class="info">
-            <p class="nickname">{{ mainlist.user.nickname }}</p>
-            <p class="date">{{ date }}</p>
-          </div>
-          <div class="reply">回复</div>
+    <div class="main" v-else></div>
+
+    <div class="commentContainer">
+      <div class="commentContent">
+        <img :src="$axios.defaults.baseURL + mainlist.user.head_img" alt="" />
+        <div class="info">
+          <p class="nickname">{{ mainlist.user.nickname }}</p>
+          <p class="date">{{ date }}</p>
         </div>
-        <div class="comment">{{ mainlist.content }}</div>
+        <div class="reply">回复</div>
       </div>
+      <div class="comment">{{ mainlist.content }}</div>
     </div>
   </div>
 </template>
@@ -58,6 +47,7 @@ export default {
 }
 .commentContainer {
   margin-top: 10/360 * 100vw;
+  padding: 5/360 * 100vw 15/360 * 100vw 10/360 * 100vw;
   .commentContent {
     display: flex;
     align-items: center;
