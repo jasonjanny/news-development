@@ -1,8 +1,8 @@
 <template>
   <div class="footerContainer">
-    <div class="deactive" v-if="false">
+    <div class="deactive" v-if="isShowInput">
       <div class="writeComment">
-        <input type="text" placeholder="写跟帖" />
+        <input type="text" placeholder="写跟帖" @focus="showTextarea" />
       </div>
       <div class="iconfont iconpinglun-">
         <div class="nums">{{ message }}</div>
@@ -10,8 +10,14 @@
       <div class="iconfont iconshoucang"></div>
       <div class="iconfont iconfenxiang"></div>
     </div>
-    <div class="active" v-if="true">
-      <textarea cols="30" rows="3" placeholder="回复"></textarea>
+    <div class="active" v-if="isShowTextarea">
+      <textarea
+        ref="aotoFocus"
+        cols="30"
+        rows="3"
+        placeholder="回复"
+        @blur="hiddenTextarea"
+      ></textarea>
       <div class="btn">发送</div>
     </div>
   </div>
@@ -19,7 +25,27 @@
 
 <script>
 export default {
+  data() {
+    return {
+      isShowInput: true,
+      isShowTextarea: false,
+    };
+  },
   props: ["message"],
+
+  methods: {
+    showTextarea() {
+      this.isShowTextarea = true;
+      this.isShowInput = false;
+      this.$nextTick(() => {
+        this.$refs.aotoFocus.focus();
+      });
+    },
+    hiddenTextarea() {
+      this.isShowTextarea = false;
+      this.isShowInput = true;
+    },
+  },
 };
 </script>
 

@@ -150,7 +150,7 @@ export default {
           res.data.data.length = 3;
         }
         this.commentList = res.data.data;
-        console.log(this.commentList);
+        // console.log(this.commentList);
 
         if (this.commentList.length === 0) {
           this.commentCount = false;
