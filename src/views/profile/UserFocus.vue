@@ -70,8 +70,8 @@ export default {
   .focusList {
     display: flex;
     align-items: center;
-    height: 70/360 * 100vw;
     border-bottom: 1px solid #ccc;
+    padding: 20/360 * 100vw 0;
 
     .img {
       width: 40/360 * 100vw;
@@ -87,7 +87,8 @@ export default {
 
     .info {
       flex: 1;
-      padding-right: 86/360 * 100vw;
+      padding-left: 10/360 * 100vw;
+      padding-right: 20/360 * 100vw;
       .content {
         margin-bottom: 4/360 * 100vw;
         font-size: 15/360 * 100vw;
