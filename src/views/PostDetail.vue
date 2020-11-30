@@ -3,7 +3,7 @@
     <!-- 普通文章 -->
     <div v-if="detailList.type === 1">
       <div class="header">
-        <span class="iconfont iconjiantou2"></span>
+        <span class="iconfont iconjiantou2" @click="$router.back()"></span>
         <span class="iconfont iconnew"></span>
         <div
           @click="focus"
@@ -118,11 +118,15 @@
       </div>
       <div class="noComment" v-else>暂无跟帖，抢占沙发</div>
     </div>
+
+    <!-- 跟帖页脚 -->
+    <PageFooter :message="detailList.comment_length" />
   </div>
 </template>
 
 <script>
 import Main from "../comment/Main";
+import PageFooter from "../components/PageFooter";
 export default {
   data() {
     return {
@@ -141,6 +145,7 @@ export default {
 
   components: {
     Main,
+    PageFooter,
   },
   created() {
     this.$axios({
