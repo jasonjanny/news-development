@@ -86,38 +86,26 @@
     <!-- 跟帖 -->
     <div class="commentContainer">
       <div class="title">精彩跟帖</div>
-      <div v-for="(comment, index) in commentList" :key="comment.id">
-        <div v-if="index < 3">
-          <div class="commentContent">
-            <img
-              :src="$axios.defaults.baseURL + comment.user.head_img"
-              alt=""
-            />
-            <div class="info">
-              <p class="nickname">{{ comment.user.nickname }}</p>
-              <p class="date">{{ date }}</p>
-            </div>
-            <div class="reply">回复</div>
-          </div>
-
-          <Main :mainlist="comment" />
-          <div class="comment">{{ comment.content }}</div>
-        </div>
-      </div>
-
-      <!-- 更多跟帖 -->
-      <div
-        class="moreCommentBtn"
-        :class="{
-          hiddenBtn: !commentCount,
-        }"
-        v-if="commentCount"
-        @click="$router.push('/morecomment/' + $route.params.id)"
-      >
-        更多跟帖
-      </div>
-      <div class="noComment" v-else>暂无跟帖，抢占沙发</div>
+      <Main
+        :mainlist="comment"
+        v-for="comment in commentList"
+        :key="comment.id"
+      />
     </div>
+
+    <!-- 更多跟帖 -->
+    <div
+      class="moreCommentBtn"
+      :class="{
+        hiddenBtn: !commentCount,
+      }"
+      v-if="commentCount"
+      @click="$router.push('/morecomment/' + $route.params.id)"
+    >
+      更多跟帖
+    </div>
+
+    <div class="noComment" v-else>暂无跟帖，抢占沙发</div>
 
     <!-- 跟帖页脚 -->
     <PageFooter :message="detailList.comment_length" />
@@ -158,6 +146,9 @@ export default {
       this.$axios({
         url: "/post_comment/" + this.$route.params.id,
       }).then((res) => {
+        if (res.data.data.length > 3) {
+          res.data.data.length = 3;
+        }
         this.commentList = res.data.data;
         console.log(this.commentList);
 
@@ -279,6 +270,7 @@ video {
     height: 40/360 * 100vw;
     background-color: #6cf;
     border-radius: 50%;
+    object-fit: cover;
   }
   .info {
     flex: 1;
@@ -352,60 +344,28 @@ video {
     font-size: 18/360 * 100vw;
     text-align: center;
   }
-  .commentContent {
-    display: flex;
-    align-items: center;
-    margin-top: 15/360 * 100vw;
-    padding: 0 15/360 * 100vw;
-    img {
-      width: 40/360 * 100vw;
-      height: 40/360 * 100vw;
-      border-radius: 50%;
-    }
-    .info {
-      flex-grow: 1;
-      padding-left: 8/360 * 100vw;
-      .nickname {
-        font-size: 16/360 * 100vw;
-      }
-      .date {
-        padding-top: 4/360 * 100vw;
-        font-size: 14/360 * 100vw;
-        color: #888;
-      }
-    }
-    .reply {
-      font-size: 15/360 * 100vw;
-      color: #888;
-    }
-  }
-  .comment {
-    padding: 0 15/360 * 100vw 20/360 * 100vw;
-    border-bottom: 1px solid #ccc;
-    font-size: 16/360 * 100vw;
-  }
+}
 
-  .moreCommentBtn {
-    width: 130/360 * 100vw;
-    height: 30/360 * 100vw;
-    line-height: 30/360 * 100vw;
-    margin: 40/360 * 100vw auto;
-    text-align: center;
-    font-size: 14/360 * 100vw;
-    color: #555;
-    border: 1px solid #888;
-    border-radius: 15/360 * 100vw;
-  }
+.moreCommentBtn {
+  width: 130/360 * 100vw;
+  height: 30/360 * 100vw;
+  line-height: 30/360 * 100vw;
+  margin: 40/360 * 100vw auto 120/360 * 100vw;
+  text-align: center;
+  font-size: 14/360 * 100vw;
+  color: #555;
+  border: 1px solid #888;
+  border-radius: 15/360 * 100vw;
+}
 
-  .hiddenBtn {
-    display: none;
-  }
+.hiddenBtn {
+  display: none;
+}
 
-  .noComment {
-    margin-top: 40/360 * 100vw;
-    text-align: center;
-    color: #888;
-    font-size: 14/360 * 100vw;
-  }
+.noComment {
+  margin-top: 40/360 * 100vw;
+  text-align: center;
+  color: #888;
+  font-size: 14/360 * 100vw;
 }
 </style>
