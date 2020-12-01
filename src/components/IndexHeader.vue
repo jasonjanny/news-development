@@ -3,7 +3,7 @@
     <!-- 头部 -->
     <div class="header">
       <div class="iconfont iconnew"></div>
-      <div class="search">
+      <div class="search" @click="$router.push('/search')">
         <span class="iconfont iconsearch"></span>
         <span class="title">搜索新闻</span>
       </div>

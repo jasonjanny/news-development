@@ -1,25 +1,74 @@
 <template>
   <div class="searchContainer">
     <div class="header">
-      <span class="iconfont iconjiantou"></span>
+      <span class="iconfont iconjiantou" @click="goback()"></span>
       <div class="search">
         <span class="iconfont iconsearch"></span>
-        <input type="text" placeholder="搜索你想要的内容" />
+        <input type="text" placeholder="搜索你想要的内容" v-model="keyword" />
       </div>
-      <div class="searchBtn">搜索</div>
+      <div class="searchBtn" @click="postSearch">搜索</div>
     </div>
 
-    <div class="historyList">
+    <PostItem :postData="list" v-for="list in postList" :key="list.id" />
+
+    <div class="historyList" v-if="postList.length === 0">
       <h2>历史记录</h2>
       <div class="list">
-        <div class="item">美女</div>
+        <div class="item" v-for="(item, index) in history" :key="index">
+          {{ item }}
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+import PostItem from "../components/IndexPostItem";
+export default {
+  data() {
+    return {
+      keyword: "",
+      postList: "",
+      history: [],
+    };
+  },
+  components: {
+    PostItem,
+  },
+
+  watch: {
+    keyword(newVal) {
+      if (!newVal) {
+        this.postList = "";
+      }
+    },
+  },
+
+  methods: {
+    postSearch() {
+      this.history.push(this.keyword);
+      this.$axios({
+        url: "/post_search",
+        params: {
+          keyword: this.keyword,
+        },
+      }).then((res) => {
+        console.log(res.data);
+        this.postList = res.data.data;
+      });
+    },
+
+    // 回退
+    goback() {
+      if (this.postList.length > 0) {
+        this.postList = "";
+        this.keyword = "";
+      } else {
+        this.$router.back();
+      }
+    },
+  },
+};
 </script>
 
 <style lang="less" scoped>
@@ -76,4 +125,4 @@ export default {};
     }
   }
 }
-</style>
+</style>实现效果：
