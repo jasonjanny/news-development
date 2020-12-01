@@ -36,17 +36,25 @@ export default {
     PostItem,
   },
 
+  mounted() {
+    // 如果本地存储有搜索记录
+    if (localStorage.getItem("history")) {
+      this.history = JSON.parse(localStorage.getItem("history"));
+    }
+  },
+
   watch: {
     keyword(newVal) {
       if (!newVal) {
         this.postList = "";
+      } else {
+        localStorage.setItem("history", JSON.stringify(this.history));
       }
     },
   },
 
   methods: {
     postSearch() {
-      this.history.push(this.keyword);
       this.$axios({
         url: "/post_search",
         params: {
@@ -55,10 +63,14 @@ export default {
       }).then((res) => {
         console.log(res.data);
         this.postList = res.data.data;
+        // 判断搜索词是否已经被记录
+        if (this.history.indexOf(this.keyword) > -1) {
+        } else {
+          this.history.push(this.keyword);
+        }
       });
     },
 
-    // 回退
     goback() {
       if (this.postList.length > 0) {
         this.postList = "";
@@ -125,4 +137,4 @@ export default {
     }
   }
 }
-</style>实现效果：
+</style>
