@@ -108,7 +108,10 @@
     <div class="noComment" v-else>暂无跟帖，抢占沙发</div>
 
     <!-- 跟帖页脚 -->
-    <PageFooter :message="detailList.comment_length" />
+    <PageFooter
+      :message="detailList.comment_length"
+      @reloadComment="reloadComment"
+    />
   </div>
 </template>
 
@@ -143,6 +146,13 @@ export default {
       this.detailList = res.data.data;
 
       // 获取评论数据
+      this.reloadComment();
+    });
+  },
+
+  methods: {
+    reloadComment() {
+      // 获取评论数据
       this.$axios({
         url: "/post_comment/" + this.$route.params.id,
       }).then((res) => {
@@ -156,10 +166,7 @@ export default {
           this.commentCount = false;
         }
       });
-    });
-  },
-
-  methods: {
+    },
     focus() {
       // 关注用户
       if (!this.detailList.has_follow) {

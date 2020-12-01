@@ -64,6 +64,7 @@ export default {
         this.isShowTextarea = false;
       }, 100);
     },
+    // 发送评论
     sendComment() {
       this.$axios({
         method: "post",
@@ -75,6 +76,9 @@ export default {
       }).then((res) => {
         console.log(res.data);
         this.content = "";
+
+        // 评论发布成功后
+        this.$emit("reloadComment");
       });
     },
   },
