@@ -1,21 +1,19 @@
 <template>
   <div>
-    <div class="mainContainer" v-if="mainlist.parent">
-      <Parent :parentlist="mainlist.parent" />
-    </div>
-
-    <div class="main" v-else></div>
-
-    <div class="commentContainer">
-      <div class="commentContent">
-        <img :src="$axios.defaults.baseURL + mainlist.user.head_img" alt="" />
-        <div class="info">
-          <p class="nickname">{{ mainlist.user.nickname }}</p>
-          <p class="date">{{ date }}</p>
+    <div class="mainContainer">
+      <div class="commentContainer">
+        <div class="commentContent">
+          <img :src="$axios.defaults.baseURL + mainlist.user.head_img" alt="" />
+          <div class="info">
+            <p class="nickname">{{ mainlist.user.nickname }}</p>
+            <p class="date">{{ date }}</p>
+          </div>
+          <div class="reply">回复</div>
         </div>
-        <div class="reply">回复</div>
+        <Parent :parentlist="mainlist.parent" v-if="mainlist.parent" />
+        <div class="main" v-else></div>
+        <div class="comment">{{ mainlist.content }}</div>
       </div>
-      <div class="comment">{{ mainlist.content }}</div>
     </div>
   </div>
 </template>
@@ -47,7 +45,6 @@ export default {
 }
 .commentContainer {
   margin-top: 10/360 * 100vw;
-  padding: 5/360 * 100vw 15/360 * 100vw 10/360 * 100vw;
   .commentContent {
     display: flex;
     align-items: center;
@@ -77,7 +74,7 @@ export default {
   }
   .comment {
     word-break: break-all; // 设置换行
-    padding-bottom: 15/360 * 100vw;
+    padding: 15/360 * 100vw 0;
     font-size: 16/360 * 100vw;
     border-bottom: 1px solid #ccc;
   }
