@@ -1,8 +1,13 @@
 <template>
   <div class="footerContainer">
-    <div class="deactive" v-if="isShowInput">
+    <div class="deactive" v-if="!isShowTextarea">
       <div class="writeComment">
-        <input type="text" placeholder="写跟帖" @focus="showTextarea" />
+        <input
+          type="text"
+          placeholder="写跟帖"
+          @focus="showTextarea"
+          v-model="content"
+        />
       </div>
       <div class="iconfont iconpinglun-">
         <div class="nums">{{ message }}</div>
@@ -17,8 +22,9 @@
         rows="3"
         placeholder="回复"
         @blur="hiddenTextarea"
+        v-model="content"
       ></textarea>
-      <div class="btn">发送</div>
+      <div class="btn" @click="sendComment">发送</div>
     </div>
   </div>
 </template>
@@ -27,8 +33,8 @@
 export default {
   data() {
     return {
-      isShowInput: true,
       isShowTextarea: false,
+      content: "",
     };
   },
   props: ["message"],
@@ -36,14 +42,27 @@ export default {
   methods: {
     showTextarea() {
       this.isShowTextarea = true;
-      this.isShowInput = false;
       this.$nextTick(() => {
         this.$refs.aotoFocus.focus();
       });
     },
     hiddenTextarea() {
-      this.isShowTextarea = false;
-      this.isShowInput = true;
+      setTimeout(() => {
+        this.isShowTextarea = false;
+      }, 100);
+    },
+    sendComment() {
+      this.$axios({
+        method: "post",
+        url: "/post_comment/" + this.$route.params.id,
+        data: {
+          parent_id: "",
+          content: this.content,
+        },
+      }).then((res) => {
+        console.log(res.data);
+        this.content = "";
+      });
     },
   },
 };
@@ -106,6 +125,7 @@ export default {
     textarea {
       border: none;
       outline: none;
+      resize: none;
       background-color: #ddd;
       border-radius: 10/360 * 100vw;
       margin-right: 10/360 * 100vw;
