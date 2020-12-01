@@ -13,6 +13,7 @@ import UserCollect from '../views/profile/UserCollect.vue'
 import PostDetail from '../views/PostDetail.vue'
 import MoreComment from '../views/moreComment.vue'
 import Comment from '../views/Comment.vue'
+import Search from '../views/Search.vue'
 import ProgramManagement from '../views/ProgramManagement.vue'
 
 import Test from '../views/Test.vue'
@@ -76,6 +77,13 @@ const routes = [
   {
     path: '/comment',
     component: Comment,
+    meta: {
+      needAuth: true
+    }
+  },
+  {
+    path: '/search',
+    component: Search,
   },
   {
     path: '/program',
