@@ -62,6 +62,7 @@ export default {
     hiddenTextarea() {
       setTimeout(() => {
         this.isShowTextarea = false;
+        this.parentId = "";
       }, 100);
     },
     // 发送评论
@@ -75,6 +76,7 @@ export default {
         },
       }).then((res) => {
         console.log(res.data);
+        this.parentId = "";
         this.content = "";
 
         // 评论发布成功后
