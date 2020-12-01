@@ -29,7 +29,11 @@
       about="关注的用户"
       @click.native="$router.push('/userfocus')"
     />
-    <UserHandle list="我的跟帖" about="跟帖/回复" />
+    <UserHandle
+      list="我的跟帖"
+      about="跟帖/回复"
+      @click.native="$router.push('/comment')"
+    />
     <UserHandle
       list="我的收藏"
       about="文章/视频"

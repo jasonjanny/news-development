@@ -2,15 +2,20 @@
   <div class="commentContainer">
     <UserHeader title="我的跟帖" />
     <div class="list">
-      <div class="item">
+      <div class="item" v-for="(comment, index) in commentList" :key="index">
         <div class="date">2020-12-01</div>
-        <div class="parent">
-          <div class="nickname">回复：123</div>
-          <div class="content">阿信是？</div>
+        <div class="parent" v-if="comment.parent">
+          <div class="nickname">回复：{{ comment.parent.user.nickname }}</div>
+          <div class="content">{{ comment.parent.content }}</div>
         </div>
-        <div class="mainContent">不是</div>
+        <div class="mainContent" v-if="comment.content">
+          {{ comment.content }}
+        </div>
         <div class="post">
-          <div class="text">原文：123456</div>
+          <div class="text" v-if="comment.post.content">
+            原文：{{ comment.post.title }}
+          </div>
+          <div v-else class="text">该帖已经被删除</div>
           <span class="iconfont iconjiantou1"></span>
         </div>
       </div>
@@ -27,8 +32,21 @@
 <script>
 import UserHeader from "../components/UserHeader";
 export default {
+  data() {
+    return {
+      commentList: "",
+    };
+  },
   components: {
     UserHeader,
+  },
+  created() {
+    this.$axios({
+      url: "user_comments",
+    }).then((res) => {
+      console.log(res);
+      this.commentList = res.data.data;
+    });
   },
 };
 </script>
@@ -55,6 +73,7 @@ export default {
         }
       }
       .mainContent {
+        margin-top: 8/360 * 100vw;
         font-size: 16/360 * 100vw;
         color: #333;
       }
