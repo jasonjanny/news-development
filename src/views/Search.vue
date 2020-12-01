@@ -6,15 +6,20 @@
         <span class="iconfont iconsearch"></span>
         <input type="text" placeholder="搜索你想要的内容" v-model="keyword" />
       </div>
-      <div class="searchBtn" @click="postSearch">搜索</div>
+      <div class="searchBtn" @click="postSearch(keyword)">搜索</div>
     </div>
 
     <PostItem :postData="list" v-for="list in postList" :key="list.id" />
 
-    <div class="historyList" v-if="postList.length === 0">
+    <div class="historyList" v-if="postList.length == 0">
       <h2>历史记录</h2>
       <div class="list">
-        <div class="item" v-for="(item, index) in history" :key="index">
+        <div
+          class="item"
+          v-for="(item, index) in history"
+          :key="index"
+          @click="postSearch(history[index])"
+        >
           {{ item }}
         </div>
       </div>
@@ -43,34 +48,25 @@ export default {
     }
   },
 
-  watch: {
-    keyword(newVal) {
-      if (!newVal) {
-        this.postList = "";
-      } else {
-        localStorage.setItem("history", JSON.stringify(this.history));
-      }
-    },
-  },
-
   methods: {
-    postSearch() {
+    //  文章搜索
+    postSearch(keyword) {
+      // 判断搜索词是否已经被记录
+      if (this.history.indexOf(this.keyword) > -1) {
+      } else {
+        this.history.push(this.keyword);
+      }
+
       this.$axios({
         url: "/post_search",
         params: {
-          keyword: this.keyword,
+          keyword,
         },
       }).then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         this.postList = res.data.data;
-        // 判断搜索词是否已经被记录
-        if (this.history.indexOf(this.keyword) > -1) {
-        } else {
-          this.history.push(this.keyword);
-        }
       });
     },
-
     goback() {
       if (this.postList.length > 0) {
         this.postList = "";
@@ -78,6 +74,12 @@ export default {
       } else {
         this.$router.back();
       }
+    },
+  },
+
+  watch: {
+    history() {
+      localStorage.setItem("history", JSON.stringify(this.history));
     },
   },
 };
