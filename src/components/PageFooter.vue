@@ -30,14 +30,27 @@
 </template>
 
 <script>
+import eventBus from "../utils/eventBus";
 export default {
   data() {
     return {
       isShowTextarea: false,
       content: "",
+      parentId: "",
     };
   },
   props: ["message"],
+
+  mounted() {
+    eventBus.$on("reply", (parentId) => {
+      this.showTextarea();
+      this.parentId = parentId;
+    });
+  },
+
+  destroyed() {
+    eventBus.$off("reply");
+  },
 
   methods: {
     showTextarea() {
@@ -56,7 +69,7 @@ export default {
         method: "post",
         url: "/post_comment/" + this.$route.params.id,
         data: {
-          parent_id: "",
+          parent_id: this.parentId,
           content: this.content,
         },
       }).then((res) => {

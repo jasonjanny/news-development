@@ -8,7 +8,7 @@
             <p class="nickname">{{ mainlist.user.nickname }}</p>
             <p class="date">{{ date }}</p>
           </div>
-          <div class="reply">回复</div>
+          <div class="reply" @click="replyComment">回复</div>
         </div>
         <Parent :parentlist="mainlist.parent" v-if="mainlist.parent" />
         <div class="main" v-else></div>
@@ -20,6 +20,7 @@
 
 <script>
 import Parent from "../comment/Parent";
+import eventBus from "../utils/eventBus";
 export default {
   data() {
     return {
@@ -34,6 +35,11 @@ export default {
   props: ["mainlist"],
   components: {
     Parent,
+  },
+  methods: {
+    replyComment() {
+      eventBus.$emit("reply", this.mainlist.id);
+    },
   },
 };
 </script>
