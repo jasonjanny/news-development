@@ -7,7 +7,7 @@
         <div class="number">1</div>
         <div class="nickname">{{ parentlist.user.id }}</div>
         <div class="date">2小时前</div>
-        <div class="reply">回复</div>
+        <div class="reply" @click="replyComment">回复</div>
       </div>
       <div class="userContent">{{ parentlist.content }}</div>
     </div>
@@ -15,9 +15,15 @@
 </template>
 
 <script>
+import eventBus from "../utils/eventBus";
 export default {
   name: "Parent",
   props: ["parentlist"],
+  methods: {
+    replyComment() {
+      eventBus.$emit("reply", this.parentlist.id);
+    },
+  },
 };
 </script>
 
