@@ -108,6 +108,9 @@ export default {
         };
       });
 
+      this.categoryList.push({
+        name: "+",
+      });
       // 第一次获取文章列表
       this.loadPost();
     });
@@ -128,5 +131,13 @@ export default {
 <style lang="less" scoped>
 .container {
   min-height: 100vh;
+
+  /deep/ .van-tab:nth-last-child(2) {
+    background-color: #f2f2f2;
+    position: sticky;
+    right: -8px;
+    line-height: 44px;
+    width: 44px;
+  }
 }
 </style>
