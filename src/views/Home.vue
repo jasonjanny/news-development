@@ -108,6 +108,7 @@ export default {
         };
       });
 
+      // 在栏目后面添加一个选项
       this.categoryList.push({
         name: "+",
       });
@@ -117,11 +118,16 @@ export default {
   },
 
   watch: {
-    activeCategoryIndex() {
+    activeCategoryIndex(newVal) {
       const category = this.categoryList[this.activeCategoryIndex];
-      if (category.postList.length === 0) {
-        // 获取文章列表
-        this.loadPost();
+
+      if (newVal === this.categoryList.length - 1) {
+        this.$router.push("/program");
+      } else {
+        if (category.postList.length === 0) {
+          // 获取文章列表
+          this.loadPost();
+        }
       }
     },
   },
