@@ -66,6 +66,11 @@ export default {
 
     // 实现栏目的添加和删除
     delChannel(index) {
+      // 剩下最后一个栏目时
+      if (this.categoryList.length <= 1) {
+        this.$toast('真的不能再少了啊')
+        return;
+      }
       this.addList.push(this.categoryList[index]);
       this.categoryList.splice(index, 1);
     },
