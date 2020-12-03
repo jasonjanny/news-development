@@ -4,7 +4,7 @@
     <Header />
 
     <!-- 导航栏 -->
-    <van-tabs v-model="activeCategoryIndex" background="#f2f2f2">
+    <van-tabs v-model="activeCategoryIndex" background="#f2f2f2" sticky>
       <van-tab
         :title="category.name"
         v-for="category in categoryList"
