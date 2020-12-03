@@ -86,10 +86,13 @@ export default {
   },
 
   created() {
-    // 获取栏目列表
-    this.$axios({
-      url: "/category",
-    }).then((res) => {
+    // 如果本地已经有数据
+    if (localStorage.getItem("activeList")) {
+      const res = {
+        data: {
+          data: JSON.parse(localStorage.getItem("activeList")),
+        },
+      };
       this.categoryList = res.data.data.map((category) => {
         return {
           // 展开语法
@@ -107,14 +110,37 @@ export default {
           finished: false,
         };
       });
-
-      // 在栏目后面添加一个选项
-      this.categoryList.push({
-        name: "+",
+    } else {
+      // 获取栏目列表
+      this.$axios({
+        url: "/category",
+      }).then((res) => {
+        this.categoryList = res.data.data.map((category) => {
+          return {
+            // 展开语法
+            // 之前服务器获取到的栏目数据，全部保留
+            ...category,
+            // 在每个栏目里都添加一个数组
+            postList: [],
+            // 当前页数
+            pageIndex: 1,
+            // 每页显示的数据条数
+            pageSize: 6,
+            // 当页面拉到底部，组件自动设置为true，就不会重复发送请求
+            loading: false,
+            // 是否已经全部加载完毕
+            finished: false,
+          };
+        });
       });
-      // 第一次获取文章列表
-      this.loadPost();
+    }
+
+    // 在栏目后面添加一个选项
+    this.categoryList.push({
+      name: "+",
     });
+    // 第一次获取文章列表
+    this.loadPost();
   },
 
   watch: {
