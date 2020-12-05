@@ -17,11 +17,25 @@ Vue.filter('fixImgUrl', (oldUrl) => {
 })
 
 // 1. 导入组件库
-import Vant, { Toast } from 'vant'
+import { ActionSheet, Dialog, Field, List, Tab, Tabs, Toast, Uploader } from 'vant'
 // 2. 引入组件 css 文件
-import 'vant/lib/index.css'
+import 'vant/lib/tab/style'
+import 'vant/lib/tabs/style'
+import 'vant/lib/list/style'
+import 'vant/lib/uploader/style'
+import 'vant/lib/dialog/style'
+import 'vant/lib/field/style'
+import 'vant/lib/action-sheet/style'
+import 'vant/lib/toast/style'
 // 3. 注册 vant ui 组件库的标签
-Vue.use(Vant)
+Vue.use(Tab)
+Vue.use(Tabs)
+Vue.use(List)
+Vue.use(Uploader)
+Vue.use(Dialog)
+Vue.use(Field)
+Vue.use(ActionSheet)
+
 
 // 引入video.js
 import Video from 'video.js'
